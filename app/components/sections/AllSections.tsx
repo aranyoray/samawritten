@@ -4,17 +4,41 @@ import { useState, useEffect, useRef } from "react";
 import { Mono, Eyebrow, SectionTitle, BtnDark } from "../ui";
 import { tokens, PROBLEM_STATS, HOW_IT_WORKS_STEPS, LEFT_FEATURES, RIGHT_FEATURES, SENSORS, CONDITION_TIERS, CELLULAR_SCENARIOS, SCIENCE_STATS, PRICING_PLANS, MARKET_NUMBERS } from "@/app/constants";
 
+const RESPONSIVE_STYLES = `
+  .section-pad { padding: 100px 56px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); }
+  
+  @media (max-width: 1024px) {
+    .section-pad { padding: 60px 24px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .md-grid-2 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .md-grid-2 { grid-template-columns: 1fr; }
+  }
+`;
+
 // ── PROBLEM STATS ─────────────────────────────────────────────────
 export function ProblemStats() {
   return (
-    <section className="reveal" style={{ background:tokens.black, padding:"80px 56px", display:"grid", gridTemplateColumns:"repeat(4,1fr)" }}>
+    <section className="reveal grid-4" style={{ background:tokens.black, padding:"80px 24px" }}>
+      <style>{RESPONSIVE_STYLES}</style>
       {PROBLEM_STATS.map((s, i) => (
         <div key={i} style={{
-          padding:"0 40px",
-          borderRight: i < 3 ? "1px solid rgba(255,255,255,0.07)" : "none",
-          paddingLeft: i === 0 ? 0 : 40,
+          padding:"24px 40px",
+          borderRight: "none",
+          borderBottom: i < 3 ? "1px solid rgba(255,255,255,0.07)" : "none",
           display:"flex", flexDirection:"column", gap:8,
-        }}>
+          textAlign: "center"
+        }} className="stat-item">
+          <style>{`
+            @media (min-width: 1025px) {
+              .stat-item { padding: 0 40px !important; text-align: left !important; border-bottom: none !important; border-right: ${i < 3 ? "1px solid rgba(255,255,255,0.07)" : "none"} !important; }
+              .stat-item:first-child { padding-left: 0 !important; }
+            }
+          `}</style>
           <span style={{ fontSize:44, fontWeight:200, letterSpacing:"-0.04em", color:tokens.white, lineHeight:1 }}>
             {s.num}<span style={{ color:tokens.green, fontWeight:600 }}>{s.unit}</span>
           </span>
@@ -28,10 +52,10 @@ export function ProblemStats() {
 // ── POSITIONING ───────────────────────────────────────────────────
 export function Positioning() {
   return (
-    <section id="how" style={{ padding:"100px 56px", background:tokens.offWhite, borderBottom:`1px solid ${tokens.border}` }}>
+    <section id="how" className="section-pad" style={{ background:tokens.offWhite, borderBottom:`1px solid ${tokens.border}` }}>
       <div className="reveal" style={{ maxWidth:680 }}>
         <Eyebrow>The Gap</Eyebrow>
-        <h2 style={{ fontSize:"clamp(28px,3.5vw,46px)", fontWeight:200, lineHeight:1.2, letterSpacing:"-0.03em", marginBottom:32 }}>
+        <h2 style={{ fontSize:"clamp(28px,4.5vw,46px)", fontWeight:200, lineHeight:1.2, letterSpacing:"-0.03em", marginBottom:32 }}>
           Most cardiac emergencies happen<br /><strong style={{ fontWeight:600 }}>when no one is watching.</strong>
         </h2>
         <p style={{ fontSize:15, fontWeight:300, lineHeight:1.85, color:tokens.mid }}>
@@ -47,12 +71,12 @@ export function Positioning() {
 // ── HOW IT WORKS ──────────────────────────────────────────────────
 export function HowItWorks() {
   return (
-    <section style={{ padding:"100px 56px", background:tokens.white }}>
+    <section className="section-pad" style={{ background:tokens.white }}>
       <div className="reveal">
         <Eyebrow>How it works</Eyebrow>
         <SectionTitle>Wear it. Forget it.<br /><strong>It&apos;s watching for you.</strong></SectionTitle>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:1, background:tokens.border, border:`1px solid ${tokens.border}`, marginTop:56 }}>
+      <div className="grid-3" style={{ background:tokens.border, gap:1, border:`1px solid ${tokens.border}`, marginTop:56 }}>
         {HOW_IT_WORKS_STEPS.map((s, i) => (
           <div key={i} className={`reveal d${i+1}`} style={{ background:tokens.white, padding:"48px 36px", display:"flex", flexDirection:"column", gap:18 }}>
             <Mono style={{ fontSize:11, letterSpacing:"0.3em", color:tokens.accent, textTransform:"uppercase" }}>{s.num}</Mono>
@@ -72,27 +96,43 @@ function FeatItem({ data, align = "left", dotRef }: {
   dotRef?: React.RefObject<HTMLSpanElement | null>;
 }) {
   return (
-    <div style={{ textAlign:align }}>
+    <div className="feat-item" style={{ textAlign:align }}>
       <Mono style={{ fontSize:8.5, letterSpacing:"0.25em", color:tokens.accent, textTransform:"uppercase", display:"block", marginBottom:5 }}>
         {data.tag}
       </Mono>
-      <div style={{
+      <div className="feat-title" style={{
         fontSize:17, fontWeight:400, letterSpacing:"-0.01em", color:tokens.black, marginBottom:6,
         display:"flex", alignItems:"center", gap:9,
-        flexDirection: align === "right" ? "row" : "row-reverse",
-        justifyContent: "flex-end",
+        flexDirection: "row",
+        justifyContent: align === "left" ? "flex-start" : "flex-end",
       }}>
-        <span ref={dotRef} style={{
-          width:5, height:5, borderRadius:"50%", background:tokens.accent, flexShrink:0,
-          boxShadow: `0 0 10px ${tokens.accent}`,
-        }} />
+        {align === "right" && (
+           <span ref={dotRef} className="dot" style={{
+             width:5, height:5, borderRadius:"50%", background:tokens.accent, flexShrink:0,
+             boxShadow: `0 0 10px ${tokens.accent}`,
+           }} />
+        )}
         {data.name}
+        {align === "left" && (
+           <span ref={dotRef} className="dot" style={{
+             width:5, height:5, borderRadius:"50%", background:tokens.accent, flexShrink:0,
+             boxShadow: `0 0 10px ${tokens.accent}`,
+           }} />
+        )}
       </div>
       <p style={{
         fontFamily:"'DM Mono',monospace", fontSize:10.5,
         color:tokens.dim, lineHeight:1.7,
-        maxWidth:210, marginLeft: align === "right" ? "auto" : 0,
-      }}>{data.desc}</p>
+        maxWidth:210, marginLeft: align === "left" ? 0 : "auto",
+        marginRight: align === "left" ? "auto" : 0,
+      }} className="feat-desc">{data.desc}</p>
+      <style>{`
+        @media (max-width: 1024px) {
+          .feat-item { text-align: center !important; }
+          .feat-title { justify-content: center !important; flex-direction: row-reverse !important; gap: 8px !important; }
+          .feat-desc { max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -104,32 +144,47 @@ function SensorItem({ data, align = "left", color, dotRef }: {
   dotRef?: React.RefObject<HTMLSpanElement | null>;
 }) {
   return (
-    <div style={{ textAlign:align }}>
+    <div className="feat-item" style={{ textAlign:align }}>
       <Mono style={{ fontSize:8.5, letterSpacing:"0.25em", color, textTransform:"uppercase", display:"block", marginBottom:5 }}>
         {data.icon} {data.spec}
       </Mono>
-      <div style={{
+      <div className="feat-title" style={{
         fontSize:17, fontWeight:400, letterSpacing:"-0.01em", color:tokens.black, marginBottom:6,
         display:"flex", alignItems:"center", gap:9,
-        flexDirection: align === "right" ? "row" : "row-reverse",
-        justifyContent: "flex-end",
+        flexDirection: "row",
+        justifyContent: align === "left" ? "flex-start" : "flex-end",
       }}>
-        <span ref={dotRef} style={{
-          width:5, height:5, borderRadius:"50%", background:color, flexShrink:0,
-          boxShadow: `0 0 10px ${color}`,
-        }} />
+        {align === "right" && (
+           <span ref={dotRef} className="dot" style={{
+             width:5, height:5, borderRadius:"50%", background:color, flexShrink:0,
+             boxShadow: `0 0 10px ${color}`,
+           }} />
+        )}
         {data.name}
+        {align === "left" && (
+           <span ref={dotRef} className="dot" style={{
+             width:5, height:5, borderRadius:"50%", background:color, flexShrink:0,
+             boxShadow: `0 0 10px ${color}`,
+           }} />
+        )}
       </div>
       <p style={{
         fontFamily:"'DM Mono',monospace", fontSize:10.5,
         color:tokens.dim, lineHeight:1.7,
-        maxWidth:210, marginLeft: align === "right" ? "auto" : 0,
-      }}>{data.detail}</p>
+        maxWidth:210, marginLeft: align === "left" ? 0 : "auto",
+        marginRight: align === "left" ? "auto" : 0,
+      }} className="feat-desc">{data.detail}</p>
+      <style>{`
+        @media (max-width: 1024px) {
+          .feat-item { text-align: center !important; }
+          .feat-title { justify-content: center !important; flex-direction: row-reverse !important; gap: 8px !important; }
+          .feat-desc { max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; }
+        }
+      `}</style>
     </div>
   );
 }
 
-// Green, Yellow, Orange, Red, Gray/Silver
 const SENSOR_COLORS = ["#22C55E", "#EAB308", "#F97316", "#EF4444", "#9CA3AF"];
 
 export function HealthAndSensorsScroll() {
@@ -150,7 +205,7 @@ export function HealthAndSensorsScroll() {
 
   const [progress, setProgress] = useState(0);
   const [lines, setLines] = useState<{x1:number, y1:number, turnX:number, x2:number, y2:number}[]>([]);
-  const [linesP2, setLinesP2] = useState<{x1:number, y1:number, x2:number, y2:number, color:string}[]>([]);
+  const [linesP2, setLinesP2] = useState<{x1:number, y1:number, turnX:number, dropY:number, x2:number, y2:number, color:string}[]>([]);
 
   useEffect(() => {
     let rafId: number;
@@ -194,10 +249,10 @@ export function HealthAndSensorsScroll() {
 
       const pts = [getP(l0Ref), getP(l1Ref), getP(r0Ref), getP(r1Ref)];
       const targets = [
-        { tx: cx - 120, ty: cy - 30 }, // BP (Top Left)
-        { tx: cx - 120, ty: cy + 40 }, // Warning/HR (Bottom Left)
-        { tx: cx + 90, ty: cy + 5 }, // Flashlight LED (Top Right)
-        { tx: cx + 125, ty: cy + 40 } // Bottom Button (Bottom Right)
+        { tx: cx - 145, ty: cy - 35 }, // BP (Top Left of face)
+        { tx: cx - 145, ty: cy + 45 }, // HR (Bottom Left of face)
+        { tx: cx + 115, ty: cy - 5 },  // SpO2 (Top Right of face)
+        { tx: cx + 140, ty: cy + 45 }  // SOS (Bottom Right of face)
       ];
 
       const newLines = [];
@@ -214,23 +269,27 @@ export function HealthAndSensorsScroll() {
       // Phase 2
       const pts2 = [getP(s0Ref), getP(s1Ref), getP(s2Ref), getP(s3Ref), getP(s4Ref)];
       const targets2 = [
-        { tx: cx - 80, ty: cy - 12 }, // Green LED photodiode
-        { tx: cx - 60, ty: cy - 12 }, // Yellow LED photodiode
-        { tx: cx - 40,      ty: cy - 12 }, // Orange LED photodiode
-        { tx: cx - 20, ty: cy - 12 }, // Red (Chassis Right)
-        { tx: cx, ty: cy - 12 }  // Gray (Chassis Far Right)
+        { tx: cx - 80, ty: cy - 8 }, // Green
+        { tx: cx - 60, ty: cy - 8 }, // Yellow
+        { tx: cx - 40,      ty: cy - 8 }, // Orange
+        { tx: cx - 20, ty: cy - 8 }, // Red
+        { tx: cx, ty: cy - 8 }  // Gray
       ];
       const newLinesP2 = [];
+      const turnOffsets = [-150, -130, -110, 110, 130];
+      const dropYOffsets = [0, -32, 24, -32, 0];
       for (let i = 0; i < 5; i++) {
         if (pts2[i]) {
-          newLinesP2.push({ x1: pts2[i]!.x, y1: pts2[i]!.y, x2: targets2[i].tx, y2: targets2[i].ty, color: SENSOR_COLORS[i] });
+          const turnX = cx + turnOffsets[i];
+          const dropY = cy - 8 + dropYOffsets[i];
+          newLinesP2.push({ x1: pts2[i]!.x, y1: pts2[i]!.y, turnX, dropY, x2: targets2[i].tx, y2: targets2[i].ty, color: SENSOR_COLORS[i] });
         }
       }
       setLinesP2(newLinesP2);
     };
 
     updateLines();
-    const timer = setTimeout(updateLines, 100); // secondary pass for robust font loading layout
+    const timer = setTimeout(updateLines, 100);
     window.addEventListener("resize", updateLines);
     return () => {
       window.removeEventListener("resize", updateLines);
@@ -253,97 +312,126 @@ export function HealthAndSensorsScroll() {
     return 0;
   };
 
-  // 0.0 -> 0.3: Phase 1 (Front, Center, Health Suite)
-  // 0.3 -> 0.7: Rotating & Translating Transition
-  // 0.7 -> 1.0: Phase 2 (Back, Left, Sensor Array)
-
   let frameIndex = 1;
-  if (progress > 0.7) frameIndex = 30;
-  else if (progress >= 0.3) frameIndex = 1 + Math.round(((progress - 0.3) / 0.4) * 29);
-  
+  frameIndex = 1 + Math.round(progress * 29);
   const frameStr = String(frameIndex).padStart(3, "0");
 
   const phase1Op = getOpacity(progress, 0, 0, 0.3, 0.5);
   const phase3Op = getOpacity(progress, 0.5, 0.7, 2, 2);
   
-  const watchLeft = 50; // Always stay centered
+  const watchLeft = 50; 
 
   return (
-    <section ref={containerRef} id="features" style={{ height: "250vh", position: "relative", background: tokens.white, borderTop:`1px solid ${tokens.border}` }}>
-      <div ref={stickyRef} style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <section ref={containerRef} id="features" className="scroll-main-container" style={{ height: "400vh", position: "relative", background: tokens.white, borderTop:`1px solid ${tokens.border}` }}>
+      <style>{`
+        .watch-fixed-box { display: none; }
+        @media (max-width: 1024px) {
+          .scroll-main-container { height: auto !important; padding-bottom: 100px; }
+          .scroll-sticky { display: block !important; height: auto !important; position: static !important; }
+          .watch-fixed-box {
+            display: flex !important;
+            position: sticky !important;
+            top: 60px;
+            height: 220px;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, #fff 80%, rgba(255,255,255,0) 100%);
+            border-bottom: none !important;
+          }
+          .watch-sequence-mobile {
+            position: relative !important;
+            left: auto !important;
+            transform: none !important;
+            width: 290px !important;
+            margin: 0 !important;
+          }
+          .scroll-phase {
+            position: relative !important;
+            inset: auto !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            padding: 40px 24px !important;
+            display: block !important;
+            margin-top: -20px;
+          }
+          .scroll-phase-inner { opacity: 1 !important; text-align: center; margin-bottom: 40px; }
+          .scroll-grid-mobile { opacity: 1 !important; }
+          .scroll-grid { display: grid; grid-template-columns: 1fr !important; gap: 36px !important; }
+          .scroll-feat-col { align-items: center !important; text-align: center !important; opacity: 1 !important; display: flex !important; flexDirection: column !important; }
+          .hide-tablet { display: none !important; }
+          .leader-lines { display: none !important; }
+          .watch-sequence-desktop { display: none !important; }
+        }
+      `}</style>
+
+      {/* FIXED WATCH BOX (Mobile Only) */}
+      <div className="watch-fixed-box">
+        <div style={{ position: "relative", zIndex: 10, display: "flex", justifyContent: "center", mixBlendMode: "multiply" }} className="watch-sequence-mobile">
+           <img src={`/rotate/ezgif-frame-${frameStr}.jpg`} alt="SamaBeat Watch Sequence Mobile" style={{ width: "100%", height: "auto" }} />
+        </div>
+      </div>
+
+      <div ref={stickyRef} className="scroll-sticky" style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
         
-        {/* Leader Lines SVG */}
-        <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 20, opacity: phase1Op, willChange: "opacity" }}>
-          {lines.map((l, i) => {
-            return (
-              <g key={i}>
-                <polyline 
-                  points={`${l.x1},${l.y1} ${l.turnX},${l.y1} ${l.turnX},${l.y2} ${l.x2},${l.y2}`} 
-                  fill="none" 
-                  stroke={tokens.accent} 
-                  strokeWidth="1.5" 
-                  strokeDasharray="4 4" 
-                  opacity="0.85" 
-                />
-                <circle cx={l.x2} cy={l.y2} r="3.5" fill={tokens.accent} opacity="1" />
-              </g>
-            )
-          })}
-        </svg>
-
-        {/* Phase 2 Leader Lines SVG */}
-        <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 20, opacity: phase3Op, willChange: "opacity" }}>
-          {linesP2.map((l, i) => {
-            return (
-              <g key={i}>
-                <polyline 
-                  points={`${l.x1},${l.y1} ${l.x2},${l.y1} ${l.x2},${l.y2}`} 
-                  fill="none" 
-                  stroke={l.color} 
-                  strokeWidth="1.5" 
-                  strokeDasharray="4 4" 
-                  opacity="0.85" 
-                />
-                <circle cx={l.x2} cy={l.y2} r="3.5" fill={l.color} opacity="1" />
-              </g>
-            )
-          })}
-        </svg>
-
-        {/* Watch Image Sequence */}
-        <div style={{ position: "absolute", left: `${watchLeft}%`, transform: "translateX(-50%)", width: 560, zIndex: 10, display: "flex", justifyContent: "center", mixBlendMode: "multiply", willChange: "left" }}>
+        <div style={{ position: "absolute", left: `${watchLeft}%`, transform: "translateX(-50%)", width: 560, zIndex: 10, display: "flex", justifyContent: "center", mixBlendMode: "multiply", willChange: "left" }} className="watch-sequence-desktop">
            <img ref={watchRef} src={`/rotate/ezgif-frame-${frameStr}.jpg`} alt="SamaBeat Watch Sequence" style={{ width: "100%", height: "auto" }} />
         </div>
 
+        {/* Phase 1 Leader Lines */}
+        <svg className="leader-lines" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 20, opacity: phase1Op, transition: "opacity 0.5s", willChange: "opacity" }}>
+          {lines.map((l, i) => (
+            <g key={i}>
+              <polyline points={`${l.x1},${l.y1} ${l.turnX},${l.y1} ${l.turnX},${l.y2} ${l.x2},${l.y2}`} fill="none" stroke={tokens.accent} strokeWidth="1.5" strokeDasharray="4 4" opacity="0.85" />
+              <circle cx={l.x2} cy={l.y2} r="3.5" fill={tokens.accent} opacity="1" />
+            </g>
+          ))}
+        </svg>
+
+        {/* Phase 2 Leader Lines */}
+        <svg className="leader-lines" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 20, opacity: phase3Op, transition: "opacity 0.5s", willChange: "opacity" }}>
+          {linesP2.map((l, i) => (
+            <g key={i}>
+              <polyline points={`${l.x1},${l.y1} ${l.turnX},${l.y1} ${l.turnX},${l.dropY} ${l.x2},${l.dropY} ${l.x2},${l.y2}`} fill="none" stroke={l.color} strokeWidth="1.5" strokeDasharray="4 4" opacity="0.85" />
+              <circle cx={l.x2} cy={l.y2} r="3.5" fill={l.color} opacity="1" />
+            </g>
+          ))}
+        </svg>
+
         {/* Phase 1: Features */}
-        <div style={{ position: "absolute", inset: 0, padding: "100px 56px", pointerEvents: phase1Op > 0 ? "auto" : "none", opacity: phase1Op, willChange: "opacity" }}>
-          <div>
+        <div style={{ position: "absolute", inset: 0, padding: "100px 56px", pointerEvents: phase1Op > 0 ? "auto" : "none", opacity: phase1Op, willChange: "opacity" }} className="section-pad scroll-phase">
+          <div className="scroll-phase-inner" style={{ opacity: phase1Op }}>
             <Eyebrow>01 — Health Suite</Eyebrow>
             <SectionTitle>Every metric.<br /><strong>Every moment.</strong></SectionTitle>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 340px 1fr", gap:48, marginTop:56 }}>
-            <div style={{ display:"flex", flexDirection:"column", gap:36 }}>
-              {LEFT_FEATURES.map((f, i) => <FeatItem key={i} data={f} dotRef={i===0 ? l0Ref : l1Ref} />)}
+          <div className="grid-3 scroll-grid scroll-grid-mobile" style={{ gap:48, marginTop:56, opacity: phase1Op }}>
+            <style>{`
+              @media (min-width: 1025px) {
+                .scroll-grid { display: grid; grid-template-columns: 1fr 340px 1fr !important; }
+              }
+            `}</style>
+            <div className="scroll-feat-col" style={{ display:"flex", flexDirection:"column", gap:36 }}>
+              {LEFT_FEATURES.map((f, i) => <FeatItem key={i} data={f} align="left" dotRef={i===0 ? l0Ref : l1Ref} />)}
             </div>
-            <div />
-            <div style={{ display:"flex", flexDirection:"column", gap:36, alignItems:"flex-end" }}>
+            <div className="hide-tablet" />
+            <div className="scroll-feat-col" style={{ display:"flex", flexDirection:"column", gap:36 }}>
               {RIGHT_FEATURES.map((f, i) => <FeatItem key={i} data={f} align="right" dotRef={i===0 ? r0Ref : r1Ref} />)}
             </div>
           </div>
         </div>
 
         {/* Phase 2: Sensors */}
-        <div style={{ position: "absolute", inset: 0, padding: "100px 56px", pointerEvents: phase3Op > 0 ? "auto" : "none" }}>
-          <div style={{ opacity: phase3Op, willChange: "opacity" }}>
+        <div style={{ position: "absolute", inset: 0, padding: "100px 56px", pointerEvents: phase3Op > 0 ? "auto" : "none", opacity: phase3Op, willChange: "opacity" }} className="section-pad scroll-phase">
+          <div className="scroll-phase-inner" style={{ opacity: phase3Op }}>
             <Eyebrow>02 — Sensor Array</Eyebrow>
             <SectionTitle>Five modalities.<br /><strong>One 2.82mm chip.</strong></SectionTitle>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 340px 1fr", gap:48, marginTop:56 }}>
-            <div style={{ display:"flex", flexDirection:"column", gap:36, opacity: phase3Op, willChange: "opacity" }}>
-              {SENSORS.slice(0,3).map((s, i) => <SensorItem key={i} data={s} color={SENSOR_COLORS[i]} dotRef={i===0 ? s0Ref : i===1 ? s1Ref : s2Ref} />)}
+          <div className="grid-3 scroll-grid scroll-grid-mobile" style={{ gap:48, marginTop:56, opacity: phase3Op }}>
+            <div className="scroll-feat-col" style={{ display:"flex", flexDirection:"column", gap:36 }}>
+              {SENSORS.slice(0,3).map((s, i) => <SensorItem key={i} data={s} align="left" color={SENSOR_COLORS[i]} dotRef={i===0 ? s0Ref : i===1 ? s1Ref : s2Ref} />)}
             </div>
-            <div />
-            <div style={{ display:"flex", flexDirection:"column", gap:36, alignItems:"flex-end", opacity: phase3Op, willChange: "opacity" }}>
+            <div className="hide-tablet" />
+            <div className="scroll-feat-col" style={{ display:"flex", flexDirection:"column", gap:36 }}>
               {SENSORS.slice(3,5).map((s, i) => <SensorItem key={i} data={s} align="right" color={SENSOR_COLORS[i+3]} dotRef={i===0 ? s3Ref : s4Ref} />)}
             </div>
           </div>
@@ -357,12 +445,12 @@ export function HealthAndSensorsScroll() {
 // ── CONDITIONS ────────────────────────────────────────────────────
 export function Conditions() {
   return (
-    <section id="conditions" style={{ padding:"100px 56px", background:tokens.offWhite, borderTop:`1px solid ${tokens.border}` }}>
+    <section id="conditions" className="section-pad" style={{ background:tokens.offWhite, borderTop:`1px solid ${tokens.border}` }}>
       <div className="reveal">
         <Eyebrow>03 — Detection</Eyebrow>
         <SectionTitle>20+ cardiac conditions.<br /><strong>Four tiers of clinical readiness.</strong></SectionTitle>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:24, marginTop:56 }}>
+      <div className="grid-4 md-grid-2" style={{ gap:24, marginTop:56 }}>
         {CONDITION_TIERS.map((tier, i) => (
           <div key={i} className={`reveal d${i+1}`}>
             <div style={{ padding:"14px 18px", borderRadius:"12px 12px 0 0", background:tier.bg, border:`1px solid ${tier.bd}`, display:"flex", flexDirection:"column", gap:4 }}>
@@ -391,12 +479,12 @@ export function Conditions() {
 // ── CELLULAR ──────────────────────────────────────────────────────
 export function Cellular() {
   return (
-    <section style={{ padding:"100px 56px", background:tokens.black }}>
+    <section className="section-pad" style={{ background:tokens.black }}>
       <div className="reveal">
         <Eyebrow light>04 — Built-in Cellular</Eyebrow>
         <SectionTitle light>Phone dead at 3am?<br /><strong>SamaBeat still calls for help.</strong></SectionTitle>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14, marginTop:56 }}>
+      <div className="grid-2" style={{ gap:14, marginTop:56 }}>
         {CELLULAR_SCENARIOS.map((s, i) => (
           <div key={i} className={`reveal d${(i%2)+1}`} style={{
             background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)",
@@ -419,12 +507,12 @@ export function Cellular() {
 // ── SCIENCE ───────────────────────────────────────────────────────
 export function Science() {
   return (
-    <section style={{ padding:"100px 56px", background:tokens.offWhite, borderTop:`1px solid ${tokens.border}` }}>
+    <section className="section-pad" style={{ background:tokens.offWhite, borderTop:`1px solid ${tokens.border}` }}>
       <div className="reveal">
         <Eyebrow>05 — Clinical Evidence</Eyebrow>
         <SectionTitle>The science<br /><strong>backs it up.</strong></SectionTitle>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:24, marginTop:56 }}>
+      <div className="grid-3" style={{ gap:24, marginTop:56 }}>
         {SCIENCE_STATS.map((s, i) => (
           <div key={i} className={`reveal d${i+1}`} style={{ background:tokens.white, border:`1px solid ${tokens.border}`, borderRadius:16, padding:36, display:"flex", flexDirection:"column", gap:12 }}>
             <div style={{ fontSize:52, fontWeight:200, letterSpacing:"-0.04em", lineHeight:1 }}>
@@ -442,12 +530,12 @@ export function Science() {
 // ── PRICING ───────────────────────────────────────────────────────
 export function Pricing() {
   return (
-    <section id="pricing" style={{ padding:"100px 56px", background:tokens.white }}>
+    <section id="pricing" className="section-pad" style={{ background:tokens.white }}>
       <div className="reveal">
         <Eyebrow>06 — Pricing</Eyebrow>
         <SectionTitle>$199 device.<br /><strong>Plans from $9.99/mo.</strong></SectionTitle>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:20, marginTop:56 }}>
+      <div className="grid-3" style={{ gap:20, marginTop:56 }}>
         {PRICING_PLANS.map((p, i) => (
           <div key={i} className={`reveal d${i+1}`} style={{
             border:`1px solid ${p.featured ? tokens.accent : tokens.border}`,
@@ -507,13 +595,13 @@ export function Pricing() {
 // ── MARKET ────────────────────────────────────────────────────────
 export function Market() {
   return (
-    <section id="market" style={{ padding:"100px 56px", background:tokens.black }}>
+    <section id="market" className="section-pad" style={{ background:tokens.black }}>
       <div className="reveal">
         <Eyebrow light>07 — The Opportunity</Eyebrow>
         <SectionTitle light>A $30.7B problem.<br /><strong>No wearable has solved it.</strong></SectionTitle>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:80, marginTop:56, alignItems:"start" }}>
-        <div className="reveal">
+      <div className="grid-2" style={{ gap:80, marginTop:56, alignItems:"start" }}>
+        <div className="reveal" style={{ zIndex: 1 }}>
           {[
             <>6.2 million Americans live with heart failure. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>23% are readmitted within 30 days.</strong> The total annual treatment burden is $30.7B — and climbing.</>,
             <>Apple Watch detects AFib. But it can&apos;t predict decompensation, can&apos;t contact emergency services independently, and isn&apos;t cleared for clinical remote patient monitoring. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>SamaBeat fills every gap.</strong></>,
@@ -540,14 +628,19 @@ export function Market() {
 // ── CTA ───────────────────────────────────────────────────────────
 export function CTA() {
   return (
-    <section id="cta" style={{ padding:"140px 56px", textAlign:"center", position:"relative", overflow:"hidden", background:tokens.white }}>
+    <section id="cta" className="section-pad" style={{ textAlign:"center", position:"relative", overflow:"hidden", background:tokens.white }}>
+      <style>{`
+        @media (min-width: 1025px) {
+          #cta { padding: 140px 56px !important; }
+        }
+      `}</style>
       <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 60% 50% at 50% 100%, rgba(26,107,255,0.05), transparent)", pointerEvents:"none" }} />
       <div className="reveal">
         <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: 3, marginBottom: 28 }}>
           <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.045em", color: tokens.black }}>SamaWritten</div>
           <span style={{ width: 6, height: 6, borderRadius: "50%", background: tokens.accent }} />
         </div>
-        <h2 style={{ fontSize:"clamp(44px,7vw,88px)", fontWeight:200, lineHeight:1, letterSpacing:"-0.04em", marginBottom:24 }}>
+        <h2 style={{ fontSize:"clamp(36px,7vw,88px)", fontWeight:200, lineHeight:1, letterSpacing:"-0.04em", marginBottom:24 }}>
           The most powerful<br />cardiac wearable<br /><strong style={{ fontWeight: 700 }}>ever built.</strong>
         </h2>
         <p style={{ fontSize:15, fontWeight:300, color:tokens.mid, maxWidth:420, margin:"0 auto 52px", lineHeight:1.75 }}>
@@ -555,7 +648,7 @@ export function CTA() {
           For the millions of people whose hearts need{" "}
           <strong style={{ color:tokens.text, fontWeight:500 }}>a guardian that never sleeps.</strong>
         </p>
-        <div style={{ display:"flex", gap:14, justifyContent:"center", alignItems:"center", marginBottom:20 }}>
+        <div style={{ display:"flex", gap:14, justifyContent:"center", alignItems:"center", marginBottom:20, flexWrap: "wrap" }}>
           <BtnDark href="mailto:sanjay@samawritten.com" style={{ fontSize:14, padding:"16px 36px" }}>Reserve SamaBeat · $199</BtnDark>
           <a href="mailto:sanjay@samawritten.com" style={{ fontSize:13, fontWeight:300, color:tokens.mid, textDecoration:"none", display:"flex", alignItems:"center", gap:6 }}>Talk to us →</a>
         </div>
@@ -570,9 +663,14 @@ export function CTA() {
 // ── FOOTER ────────────────────────────────────────────────────────
 export function Footer() {
   return (
-    <footer style={{ padding:"48px 56px", borderTop:`1px solid ${tokens.border}`, background:tokens.offWhite, display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:24 }}>
+    <footer className="footer-container" style={{ padding:"48px 56px", borderTop:`1px solid ${tokens.border}`, background:tokens.offWhite, display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:24 }}>
+      <style>{`
+        @media (max-width: 1024px) {
+          .footer-container { padding: 48px 24px !important; justify-content: center !important; text-align: center !important; }
+        }
+      `}</style>
       <div>
-        <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.04em", color: tokens.black, display: "flex", alignItems: "baseline", gap: 2 }}>
+        <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.04em", color: tokens.black, display: "flex", alignItems: "baseline", gap: 2, justifyContent: "inherit" }}>
           SamaWritten
           <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent }} />
         </div>
@@ -580,7 +678,7 @@ export function Footer() {
           SAMABEAT · 2026
         </Mono>
       </div>
-      <div style={{ display: "flex", gap: 40, alignItems: "center" }}>
+      <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
         <Mono style={{ fontSize:9.5, letterSpacing:"0.15em", color:tokens.dim }}>Confidential — For Investor Use Only</Mono>
         <a href="mailto:sanjay@samawritten.com" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.accent, textDecoration:"none", borderBottom: `1px solid ${tokens.accent}` }}>
           sanjay@samawritten.com
