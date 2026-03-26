@@ -191,7 +191,9 @@ const SENSOR_COLORS = ["#22C55E", "#EAB308", "#F97316", "#EF4444", "#9CA3AF"];
 export function HealthAndSensorsScroll() {
   const containerRef = useRef<HTMLElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
-  const watchRef = useRef<HTMLImageElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mobileCanvasRef = useRef<HTMLCanvasElement>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
   
   const l0Ref = useRef<HTMLSpanElement>(null);
   const l1Ref = useRef<HTMLSpanElement>(null);
@@ -235,9 +237,9 @@ export function HealthAndSensorsScroll() {
 
   useEffect(() => {
     const updateLines = () => {
-      if (!stickyRef.current || !watchRef.current) return;
+      if (!stickyRef.current || !canvasRef.current) return;
       const sRect = stickyRef.current.getBoundingClientRect();
-      const wRect = watchRef.current.getBoundingClientRect();
+      const wRect = canvasRef.current.getBoundingClientRect();
       
       const cx = wRect.left + wRect.width / 2 - sRect.left;
       const cy = wRect.top + wRect.height / 2 - sRect.top;
@@ -298,12 +300,45 @@ export function HealthAndSensorsScroll() {
     };
   }, []);
 
+  // 1. Preload images strongly
   useEffect(() => {
+    if (imagesRef.current.length > 0) return;
+    const loadedImages: HTMLImageElement[] = [];
     for (let i = 1; i <= 180; i++) {
-        const img = new Image();
-        img.src = `/rotate/ezgif-frame-${String(i).padStart(3, '0')}.jpg`;
+      const img = new Image();
+      img.src = `/rotate/ezgif-frame-${String(i).padStart(3, '0')}.jpg`;
+      loadedImages.push(img);
     }
+    imagesRef.current = loadedImages;
   }, []);
+
+  // 2. High-performance Canvas Drawing
+  useEffect(() => {
+    const frameIndex = Math.max(0, Math.min(179, Math.round(progress * 179)));
+    const img = imagesRef.current[frameIndex];
+    
+    if (img) {
+      const draw = (canvas: HTMLCanvasElement | null) => {
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        
+        // Clear and draw
+        if (img.complete) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        } else {
+          img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          };
+        }
+      };
+
+      draw(canvasRef.current);
+      draw(mobileCanvasRef.current);
+    }
+  }, [progress]);
 
   const getOpacity = (p: number, fadeInStart: number, fadeInEnd: number, fadeOutStart: number, fadeOutEnd: number) => {
     if (p < fadeInStart) return 0;
@@ -312,10 +347,6 @@ export function HealthAndSensorsScroll() {
     if (p < fadeOutEnd) return 1 - (p - fadeOutStart) / (fadeOutEnd - fadeOutStart);
     return 0;
   };
-
-  let frameIndex = 1;
-  frameIndex = 1 + Math.round(progress * 179);
-  const frameStr = String(frameIndex).padStart(3, "0");
 
   const phase1Op = getOpacity(progress, 0, 0, 0.3, 0.5);
   const phase3Op = getOpacity(progress, 0.5, 0.7, 2, 2);
@@ -369,14 +400,14 @@ export function HealthAndSensorsScroll() {
       {/* FIXED WATCH BOX (Mobile Only) */}
       <div className="watch-fixed-box">
         <div style={{ position: "relative", zIndex: 10, display: "flex", justifyContent: "center", mixBlendMode: "multiply" }} className="watch-sequence-mobile">
-           <img src={`/rotate/ezgif-frame-${frameStr}.jpg`} alt="SamaBeat Watch Sequence Mobile" style={{ width: "100%", height: "auto" }} />
+           <canvas ref={mobileCanvasRef} width={800} height={800} style={{ width: "100%", height: "auto" }} />
         </div>
       </div>
 
       <div ref={stickyRef} className="scroll-sticky" style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
         
         <div style={{ position: "absolute", left: `${watchLeft}%`, transform: "translateX(-50%)", width: 560, zIndex: 10, display: "flex", justifyContent: "center", mixBlendMode: "multiply", willChange: "left" }} className="watch-sequence-desktop">
-           <img ref={watchRef} src={`/rotate/ezgif-frame-${frameStr}.jpg`} alt="SamaBeat Watch Sequence" style={{ width: "100%", height: "auto" }} />
+           <canvas ref={canvasRef} width={1000} height={1000} style={{ width: "100%", height: "auto" }} />
         </div>
 
         {/* Phase 1 Leader Lines */}
