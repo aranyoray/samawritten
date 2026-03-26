@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useReveal } from "../../hooks";
+import { useWaitlist } from "../../context/WaitlistContext";
 import { Mono, Eyebrow, SectionTitle, BtnDark } from "../ui";
 import { tokens, PROBLEM_STATS, HOW_IT_WORKS_STEPS, LEFT_FEATURES, RIGHT_FEATURES, SENSORS, CONDITION_TIERS, CELLULAR_SCENARIOS, SCIENCE_STATS, PRICING_PLANS, MARKET_NUMBERS } from "@/app/constants";
 
@@ -42,7 +44,7 @@ export function ProblemStats() {
           <span style={{ fontSize:44, fontWeight:200, letterSpacing:"-0.04em", color:tokens.white, lineHeight:1 }}>
             {s.num}<span style={{ color:tokens.green, fontWeight:600 }}>{s.unit}</span>
           </span>
-          <Mono style={{ fontSize:9.5, letterSpacing:"0.25em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", lineHeight:1.5 }}>{s.label}</Mono>
+          <Mono style={{ fontSize:13, letterSpacing:"0.15em", color:tokens.white, textTransform:"uppercase", lineHeight:1.5 }}>{s.label}</Mono>
         </div>
       ))}
     </section>
@@ -53,10 +55,10 @@ export function ProblemStats() {
 export function Positioning() {
   return (
     <section id="how" className="section-pad" style={{ background:tokens.offWhite, borderBottom:`1px solid ${tokens.border}` }}>
-      <div className="reveal" style={{ maxWidth:680 }}>
-        <Eyebrow>The Gap</Eyebrow>
-        <h2 style={{ fontSize:"clamp(28px,4.5vw,46px)", fontWeight:200, lineHeight:1.2, letterSpacing:"-0.03em", marginBottom:32 }}>
-          Most cardiac emergencies happen<br /><strong style={{ fontWeight:600 }}>when no one is watching.</strong>
+      <div className="reveal" style={{ maxWidth: 800 }}>
+        <h2 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", fontWeight: 200, lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 32 }}>
+          Most cardiac emergencies happen<br />
+          <strong style={{ fontWeight: 600 }}>when no one is watching.</strong>
         </h2>
         <p style={{ fontSize:15, fontWeight:300, lineHeight:1.85, color:tokens.mid }}>
           Your Apple Watch can detect AFib. But it can&apos;t call your daughter when you collapse at 2am. It can&apos;t text your cardiologist your last 72 hours of data. And it{" "}
@@ -73,7 +75,6 @@ export function HowItWorks() {
   return (
     <section className="section-pad" style={{ background:tokens.white }}>
       <div className="reveal">
-        <Eyebrow>How it works</Eyebrow>
         <SectionTitle>Wear it. Forget it.<br /><strong>It&apos;s watching for you.</strong></SectionTitle>
       </div>
       <div className="grid-3" style={{ background:tokens.border, gap:1, border:`1px solid ${tokens.border}`, marginTop:56 }}>
@@ -298,9 +299,9 @@ export function HealthAndSensorsScroll() {
   }, []);
 
   useEffect(() => {
-    for (let i = 1; i <= 30; i++) {
+    for (let i = 1; i <= 180; i++) {
         const img = new Image();
-        img.src = `/rotate/ezgif-frame-${String(i).padStart(0, '0')}.jpg`;
+        img.src = `/rotate/ezgif-frame-${String(i).padStart(3, '0')}.jpg`;
     }
   }, []);
 
@@ -313,7 +314,7 @@ export function HealthAndSensorsScroll() {
   };
 
   let frameIndex = 1;
-  frameIndex = 1 + Math.round(progress * 29);
+  frameIndex = 1 + Math.round(progress * 179);
   const frameStr = String(frameIndex).padStart(3, "0");
 
   const phase1Op = getOpacity(progress, 0, 0, 0.3, 0.5);
@@ -401,7 +402,6 @@ export function HealthAndSensorsScroll() {
         {/* Phase 1: Features */}
         <div style={{ position: "absolute", inset: 0, padding: "100px 56px", pointerEvents: phase1Op > 0 ? "auto" : "none", opacity: phase1Op, willChange: "opacity" }} className="section-pad scroll-phase">
           <div className="scroll-phase-inner" style={{ opacity: phase1Op }}>
-            <Eyebrow>01 — Health Suite</Eyebrow>
             <SectionTitle>Every metric.<br /><strong>Every moment.</strong></SectionTitle>
           </div>
           <div className="grid-3 scroll-grid scroll-grid-mobile" style={{ gap:48, marginTop:56, opacity: phase1Op }}>
@@ -423,7 +423,6 @@ export function HealthAndSensorsScroll() {
         {/* Phase 2: Sensors */}
         <div style={{ position: "absolute", inset: 0, padding: "100px 56px", pointerEvents: phase3Op > 0 ? "auto" : "none", opacity: phase3Op, willChange: "opacity" }} className="section-pad scroll-phase">
           <div className="scroll-phase-inner" style={{ opacity: phase3Op }}>
-            <Eyebrow>02 — Sensor Array</Eyebrow>
             <SectionTitle>Five modalities.<br /><strong>One 2.82mm chip.</strong></SectionTitle>
           </div>
           <div className="grid-3 scroll-grid scroll-grid-mobile" style={{ gap:48, marginTop:56, opacity: phase3Op }}>
@@ -447,7 +446,6 @@ export function Conditions() {
   return (
     <section id="conditions" className="section-pad" style={{ background:tokens.offWhite, borderTop:`1px solid ${tokens.border}` }}>
       <div className="reveal">
-        <Eyebrow>03 — Detection</Eyebrow>
         <SectionTitle>20+ cardiac conditions.<br /><strong>Four tiers of clinical readiness.</strong></SectionTitle>
       </div>
       <div className="grid-4 md-grid-2" style={{ gap:24, marginTop:56 }}>
@@ -455,7 +453,7 @@ export function Conditions() {
           <div key={i} className={`reveal d${i+1}`}>
             <div style={{ padding:"14px 18px", borderRadius:"12px 12px 0 0", background:tier.bg, border:`1px solid ${tier.bd}`, display:"flex", flexDirection:"column", gap:4 }}>
               <Mono style={{ fontSize:8.5, letterSpacing:"0.25em", color:tier.color, textTransform:"uppercase" }}>{tier.label}</Mono>
-              <span style={{ fontSize:10, fontWeight:300, color:tokens.dim }}>{tier.sub}</span>
+              <span style={{ fontSize:13, fontWeight:400, color:tokens.black }}>{tier.sub}</span>
             </div>
             <div style={{ border:`1px solid ${tokens.border}`, borderTop:"none", borderRadius:"0 0 12px 12px", overflow:"hidden" }}>
               {tier.items.map((item, j) => (
@@ -481,7 +479,6 @@ export function Cellular() {
   return (
     <section className="section-pad" style={{ background:tokens.black }}>
       <div className="reveal">
-        <Eyebrow light>04 — Built-in Cellular</Eyebrow>
         <SectionTitle light>Phone dead at 3am?<br /><strong>SamaBeat still calls for help.</strong></SectionTitle>
       </div>
       <div className="grid-2" style={{ gap:14, marginTop:56 }}>
@@ -494,11 +491,25 @@ export function Cellular() {
             onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.08)"}
             onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.04)"}
           >
-            <Mono style={{ fontSize:9, letterSpacing:"0.25em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase" }}>Scenario {s.num}</Mono>
             <div style={{ fontSize:15, fontWeight:400, color:tokens.white }}>{s.title}</div>
             <p style={{ fontSize:12.5, fontWeight:300, color:"rgba(255,255,255,0.42)", lineHeight:1.65 }}>{s.body}</p>
           </div>
         ))}
+        {/* Explore More card */}
+        <div className="reveal d2" style={{
+            background: "rgba(255,255,255,0.04)", border: `1px solid ${tokens.accent}`,
+            borderRadius: 14, padding: 28, display: "flex", alignItems: "center", justifyContent: "center",
+            cursor: "pointer", transition: "background 0.2s",
+            boxShadow: `0 0 20px rgba(26,107,255,0.1)`,
+          }}
+          onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
+          onMouseEnter={e => e.currentTarget.style.background = "rgba(26,107,255,0.08)"}
+          onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}
+        >
+          <div style={{ fontSize: 18, fontWeight: 600, color: tokens.white, display: "flex", alignItems: "center", gap: 8 }}>
+            Explore Features →
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -509,7 +520,6 @@ export function Science() {
   return (
     <section className="section-pad" style={{ background:tokens.offWhite, borderTop:`1px solid ${tokens.border}` }}>
       <div className="reveal">
-        <Eyebrow>05 — Clinical Evidence</Eyebrow>
         <SectionTitle>The science<br /><strong>backs it up.</strong></SectionTitle>
       </div>
       <div className="grid-3" style={{ gap:24, marginTop:56 }}>
@@ -532,7 +542,6 @@ export function Pricing() {
   return (
     <section id="pricing" className="section-pad" style={{ background:tokens.white }}>
       <div className="reveal">
-        <Eyebrow>06 — Pricing</Eyebrow>
         <SectionTitle>$199 device.<br /><strong>Plans from $9.99/mo.</strong></SectionTitle>
       </div>
       <div className="grid-3" style={{ gap:20, marginTop:56 }}>
@@ -585,7 +594,7 @@ export function Pricing() {
           </div>
         ))}
       </div>
-      <p className="reveal" style={{ marginTop:28, textAlign:"center", fontFamily:"'DM Mono',monospace", fontSize:9.5, letterSpacing:"0.2em", color:tokens.dim }}>
+      <p className="reveal" style={{ marginTop:28, textAlign:"center", fontSize:13, fontWeight:400, color:tokens.black }}>
         Emergency calling always works — even without an active subscription.
       </p>
     </section>
@@ -597,7 +606,6 @@ export function Market() {
   return (
     <section id="market" className="section-pad" style={{ background:tokens.black }}>
       <div className="reveal">
-        <Eyebrow light>07 — The Opportunity</Eyebrow>
         <SectionTitle light>A $30.7B problem.<br /><strong>No wearable has solved it.</strong></SectionTitle>
       </div>
       <div className="grid-2" style={{ gap:80, marginTop:56, alignItems:"start" }}>
@@ -616,7 +624,7 @@ export function Market() {
               <div style={{ fontSize:46, fontWeight:200, letterSpacing:"-0.04em", color:tokens.white, lineHeight:1 }}>
                 {n.val}<span style={{ color:tokens.green }}>{n.em}</span>
               </div>
-              <Mono style={{ fontSize:9.5, letterSpacing:"0.2em", color:"rgba(255,255,255,0.28)", textTransform:"uppercase", marginTop:5, display:"block" }}>{n.label}</Mono>
+              <Mono style={{ fontSize:13, letterSpacing:"0.1em", color:tokens.white, textTransform:"uppercase", marginTop:5, display:"block" }}>{n.label}</Mono>
             </div>
           ))}
         </div>
@@ -627,18 +635,16 @@ export function Market() {
 
 // ── CTA ───────────────────────────────────────────────────────────
 export function CTA() {
+  const { openModal } = useWaitlist();
+
   return (
-    <section id="cta" className="section-pad" style={{ textAlign:"center", position:"relative", overflow:"hidden", background:tokens.white }}>
-      <style>{`
-        @media (min-width: 1025px) {
-          #cta { padding: 140px 56px !important; }
-        }
-      `}</style>
-      <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 60% 50% at 50% 100%, rgba(26,107,255,0.05), transparent)", pointerEvents:"none" }} />
-      <div className="reveal">
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: 3, marginBottom: 28 }}>
-          <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.045em", color: tokens.black }}>SamaWritten</div>
-          <span style={{ width: 6, height: 6, borderRadius: "50%", background: tokens.accent }} />
+    <section id="cta" className="reveal" style={{ padding: "120px 24px", textAlign: "center", background: tokens.offWhite }}>
+      <div style={{ maxWidth: 800, margin: "0 auto" }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
+          <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
+            SamaWritten
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
+          </div>
         </div>
         <h2 style={{ fontSize:"clamp(36px,7vw,88px)", fontWeight:200, lineHeight:1, letterSpacing:"-0.04em", marginBottom:24 }}>
           The most powerful<br />cardiac wearable<br /><strong style={{ fontWeight: 700 }}>ever built.</strong>
@@ -649,12 +655,9 @@ export function CTA() {
           <strong style={{ color:tokens.text, fontWeight:500 }}>a guardian that never sleeps.</strong>
         </p>
         <div style={{ display:"flex", gap:14, justifyContent:"center", alignItems:"center", marginBottom:20, flexWrap: "wrap" }}>
-          <BtnDark href="mailto:sanjay@samawritten.com" style={{ fontSize:14, padding:"16px 36px" }}>Reserve SamaBeat · $199</BtnDark>
-          <a href="mailto:sanjay@samawritten.com" style={{ fontSize:13, fontWeight:300, color:tokens.mid, textDecoration:"none", display:"flex", alignItems:"center", gap:6 }}>Talk to us →</a>
+          <BtnDark onClick={openModal} style={{ fontSize:14, padding:"16px 36px" }}>Reserve SamaBeat · $199</BtnDark>
+          <a href="mailto:hi@samaritan.com" style={{ fontSize:13, fontWeight:300, color:tokens.mid, textDecoration: "none", display:"flex", alignItems:"center", gap:6 }}>Talk to us →</a>
         </div>
-        <Mono style={{ fontSize:10, letterSpacing: "0.45em", color: tokens.mid, textTransform: "uppercase", display: "block", opacity: 0.6 }}>
-          SAMABEAT · 2026
-        </Mono>
       </div>
     </section>
   );
@@ -670,18 +673,14 @@ export function Footer() {
         }
       `}</style>
       <div>
-        <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.04em", color: tokens.black, display: "flex", alignItems: "baseline", gap: 2, justifyContent: "inherit" }}>
+        <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
           SamaWritten
-          <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent }} />
+          <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
         </div>
-        <Mono style={{ fontSize: 8.5, letterSpacing: "0.2em", color: tokens.dim, textTransform: "uppercase", display: "block", marginTop: 4 }}>
-          SAMABEAT · 2026
-        </Mono>
       </div>
-      <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
-        <Mono style={{ fontSize:9.5, letterSpacing:"0.15em", color:tokens.dim }}>Confidential — For Investor Use Only</Mono>
-        <a href="mailto:sanjay@samawritten.com" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.accent, textDecoration:"none", borderBottom: `1px solid ${tokens.accent}` }}>
-          sanjay@samawritten.com
+      <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+        <a href="mailto:hi@samaritan.com" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.accent, textDecoration:"none", borderBottom: `1px solid ${tokens.accent}` }}>
+          hi@samaritan.com
         </a>
       </div>
     </footer>

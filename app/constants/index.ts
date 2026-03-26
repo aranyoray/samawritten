@@ -4,7 +4,7 @@ export const tokens = {
   offWhite: "#F7F7F5",
   surface:  "#F1F1EE",
   border:   "#E4E4E0",
-  black:    "#080808",
+  black:    "#000000",
   text:     "#0F0F0F",
   mid:      "#525250",
   dim:      "#9A9A93",
@@ -59,13 +59,6 @@ export const GLOBAL_CSS = `
 
 // ── DATA CONSTANTS ────────────────────────────────────────────────
 
-export const VITALS_DATA = [
-  { val: "184/122", label: "mmHg BP",  color: tokens.red    },
-  { val: "148",     label: "BPM",       color: tokens.orange },
-  { val: "98%",     label: "SpO₂",      color: tokens.green  },
-  { val: "25",      label: "RR /min",   color: tokens.text   },
-  { val: "48ms",    label: "HRV",       color: tokens.text   },
-];
 
 export const PROBLEM_STATS = [
   { num:"6.2",   unit:"M",   label:"Americans with heart failure" },
@@ -114,7 +107,6 @@ export const CONDITION_TIERS = [
 ];
 
 export const CELLULAR_SCENARIOS = [
-  { num:"01", title:"Phone dead at 3am?",   body:"SamaBeat calls for help directly over LTE-M. No Bluetooth. No Wi-Fi. Your wrist is the phone." },
   { num:"02", title:"False alarm?",          body:"30-second confirmation window before escalating. One touch to dismiss. No panic." },
   { num:"03", title:"No cell coverage?",     body:"Data queues locally and syncs when coverage returns. Not a single heartbeat is lost." },
   { num:"04", title:"Battery low?",          body:"Emergency-only mode preserves help-calling capability down to 5% battery." },
