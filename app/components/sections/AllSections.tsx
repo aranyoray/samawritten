@@ -317,18 +317,26 @@ export function HealthAndSensorsScroll() {
     const frameIndex = Math.max(0, Math.min(179, Math.round(progress * 179)));
     const img = imagesRef.current[frameIndex];
     
-    if (img) {
+     if (img) {
       const draw = (canvas: HTMLCanvasElement | null) => {
         if (!canvas) return;
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
         
-        // Clear and draw
-        if (img.complete) {
+        // Match original image resolution
+        if (img.complete && img.naturalWidth > 0) {
+          if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+          }
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         } else {
           img.onload = () => {
+            if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+            }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           };
@@ -400,14 +408,14 @@ export function HealthAndSensorsScroll() {
       {/* FIXED WATCH BOX (Mobile Only) */}
       <div className="watch-fixed-box">
         <div style={{ position: "relative", zIndex: 10, display: "flex", justifyContent: "center", mixBlendMode: "multiply" }} className="watch-sequence-mobile">
-           <canvas ref={mobileCanvasRef} width={800} height={800} style={{ width: "100%", height: "auto" }} />
+           <canvas ref={mobileCanvasRef} style={{ width: "100%", height: "auto" }} />
         </div>
       </div>
 
       <div ref={stickyRef} className="scroll-sticky" style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
         
         <div style={{ position: "absolute", left: `${watchLeft}%`, transform: "translateX(-50%)", width: 560, zIndex: 10, display: "flex", justifyContent: "center", mixBlendMode: "multiply", willChange: "left" }} className="watch-sequence-desktop">
-           <canvas ref={canvasRef} width={1000} height={1000} style={{ width: "100%", height: "auto" }} />
+           <canvas ref={canvasRef} style={{ width: "100%", height: "auto" }} />
         </div>
 
         {/* Phase 1 Leader Lines */}
