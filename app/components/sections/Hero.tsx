@@ -1,7 +1,10 @@
 import { Mono, BtnDark } from "../ui";
-import { tokens, VITALS_DATA } from "@/app/constants";
+import { tokens } from "@/app/constants";
+import { useWaitlist } from "../../context/WaitlistContext";
 
 export function Hero() {
+  const { openModal } = useWaitlist();
+  
   return (
     <section className="hero-section" style={{
       minHeight: "100vh", paddingTop: 80,
@@ -81,36 +84,19 @@ export function Hero() {
         }
       `}</style>
 
-      {/* Direct children for easy reordering on mobile */}
-      <div className="hero-child hero-pill" style={{
-        display: "inline-flex", alignItems: "center", gap: 8,
-        background: tokens.surface, border: `1px solid ${tokens.border}`,
-        borderRadius: 100, padding: "6px 14px", marginBottom: 28,
-        justifySelf: "start"
-      }}>
-        <style>{`@media(max-width:1024px){.hero-pill{justify-self:center!important;}}`}</style>
-        <span style={{
-          width: 6, height: 6, borderRadius: "50%", background: tokens.green,
-          boxShadow: `0 0 8px ${tokens.green}`, display: "inline-block",
-          animation: "blink 2s infinite",
-        }} />
-        <Mono style={{ fontSize: 9.5, letterSpacing: "0.2em", color: tokens.mid, textTransform: "uppercase" }}>
-          Seed Round Open · Cardiac Wearables
-        </Mono>
-      </div>
 
       <h1 className="hero-child hero-h1" style={{
         fontSize: "clamp(32px, 8vw, 70px)",
         fontWeight: 200, lineHeight: 1.06, letterSpacing: "-0.04em",
-        marginBottom: 24,
+        marginBottom: 24, marginTop: 36,
       }}>
         A wristband that<br />
         watches your heart<br />
-        and <strong style={{ fontWeight: 700 }}>calls for help.</strong>
+        and <strong style={{ fontWeight: 700 }}>alerts nearby samaritans</strong>
       </h1>
 
       <div className="hero-watch-container">
-        <img src="/watch.png" alt="SamaBeat Watch" className="hero-watch-img" />
+        <img src="/watch.png" alt="SamaWritten Advanced Cardiac Wearable - AI-powered heart monitoring and emergency alerts" className="hero-watch-img" />
       </div>
 
       <p className="hero-child hero-p" style={{
@@ -118,14 +104,14 @@ export function Hero() {
         maxWidth: 400, marginBottom: 20,
       }}>
         SamaBeat monitors 20+ cardiac conditions with five on-wrist sensors
-        and on-device AI. When something goes wrong, it alerts your loved ones
+        and on-device AI. When something goes wrong, it alerts nearby samaritans 
         and calls for help — no phone needed.
       </p>
 
       <div className="hero-child hero-tags" style={{
         display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 44,
       }}>
-        {["$199 device", "Plans from $9.99/mo", "LTE-M cellular", "FDA 510(k) pathway"].map(tag => (
+        {["$199 device", "Plans from $9.99/mo", "LTE-M cellular"].map(tag => (
           <Mono key={tag} style={{
             fontSize: 9.5, letterSpacing: "0.15em", color: tokens.dim,
             background: tokens.surface, border: `1px solid ${tokens.border}`,
@@ -135,28 +121,7 @@ export function Hero() {
       </div>
 
       <div className="hero-child hero-btns" style={{ display: "flex", gap: 14, alignItems: "center", marginBottom: 64, flexWrap: "wrap" }}>
-        <BtnDark href="#cta">Reserve SamaBeat</BtnDark>
-        <a href="#how" style={{ fontSize:13, fontWeight:300, color:tokens.mid, textDecoration:"none", display:"flex", alignItems:"center", gap:6, transition:"color 0.2s" }}
-          onMouseEnter={e=>e.currentTarget.style.color=tokens.black}
-          onMouseLeave={e=>e.currentTarget.style.color=tokens.mid}
-        >How it works →</a>
-      </div>
-
-      <div className="hero-child vitals-strip" style={{
-        display: "flex", gap: 12, flexWrap: "wrap",
-      }}>
-        {VITALS_DATA.map(v => (
-          <div key={v.label} style={{
-            background: tokens.white, border: `1px solid ${tokens.border}`,
-            borderRadius: 12, padding: "10px 16px",
-            display: "flex", flexDirection: "column", gap: 3,
-            boxShadow: "0 4px 20px rgba(0,0,0,0.07)",
-            textAlign: "left"
-          }}>
-            <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.03em", color: v.color, lineHeight: 1 }}>{v.val}</span>
-            <Mono style={{ fontSize: 8.5, letterSpacing: "0.2em", color: tokens.dim, textTransform: "uppercase" }}>{v.label}</Mono>
-          </div>
-        ))}
+        <BtnDark onClick={openModal}>Reserve SamaBeat</BtnDark>
       </div>
     </section>
   );

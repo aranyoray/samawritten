@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Mono } from "../ui/Typography";
+import { useWaitlist } from "../../context/WaitlistContext";
 import { tokens } from "@/app/constants";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { openModal } = useWaitlist();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -60,26 +61,24 @@ export function Nav() {
             SamaWritten
             <span style={{ width: 5, height: 5, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
           </div>
-          <Mono style={{ fontSize: 9, letterSpacing: "0.5em", color: tokens.dim, textTransform: "uppercase", display: "block", marginTop: 1 }}>
-            SAMABEAT
-          </Mono>
         </div>
 
         <div className="nav-links" style={{ gap: 28, alignItems: "center" }}>
           {navLinks.map(([href, label]) => (
-            <a key={label} href={href} style={{ fontSize: 12, fontWeight: 300, color: tokens.mid, textDecoration: "none", letterSpacing: "0.02em", transition: "color 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.color = tokens.black}
-              onMouseLeave={e => e.currentTarget.style.color = tokens.mid}
+            <a key={label} href={href} style={{ fontSize: 15, fontWeight: 500, color: tokens.black, textDecoration: "none", letterSpacing: "0.01em", transition: "color 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.color = tokens.accent}
+              onMouseLeave={e => e.currentTarget.style.color = tokens.black}
             >{label}</a>
           ))}
-          <a href="#cta" style={{
+          <button onClick={openModal} style={{
             fontSize: 12, fontWeight: 400, color: tokens.white, textDecoration: "none",
             padding: "8px 20px", borderRadius: 100, background: tokens.black,
             transition: "opacity 0.2s",
+            border: "none", cursor: "pointer"
           }}
             onMouseEnter={e => e.currentTarget.style.opacity = "0.72"}
             onMouseLeave={e => e.currentTarget.style.opacity = "1"}
-          >Reserve · $199</a>
+          >Reserve · $199</button>
         </div>
 
         <button 
@@ -113,11 +112,12 @@ export function Nav() {
           >{label}</a>
         ))}
         <div style={{ marginTop: "auto" }}>
-          <a href="#cta" onClick={() => setMobileMenuOpen(false)} style={{
-            display: "block", textAlign: "center",
+          <button onClick={() => { setMobileMenuOpen(false); openModal(); }} style={{
+            display: "block", width: "100%", textAlign: "center",
             fontSize: 14, fontWeight: 400, color: tokens.white, textDecoration: "none",
             padding: "16px", borderRadius: 100, background: tokens.black,
-          }}>Reserve SamaBeat · $199</a>
+            border: "none", cursor: "pointer"
+          }}>Reserve SamaBeat · $199</button>
         </div>
       </div>
     </>
