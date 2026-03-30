@@ -103,7 +103,7 @@ export function Hero() {
         fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: tokens.mid,
         maxWidth: 400, marginBottom: 20,
       }}>
-        SamaBeat monitors 20+ cardiac conditions with five on-wrist sensors
+        SamaWritten monitors 20+ cardiac conditions with five on-wrist sensors
         and on-device AI. When something goes wrong, it alerts nearby samaritans 
         and calls for help — no phone needed.
       </p>
@@ -121,7 +121,7 @@ export function Hero() {
       </div>
 
       <div className="hero-child hero-btns" style={{ display: "flex", gap: 14, alignItems: "center", marginBottom: 64, flexWrap: "wrap" }}>
-        <BtnDark onClick={openModal}>Reserve SamaBeat</BtnDark>
+        <BtnDark onClick={openModal}>Reserve SamaWritten</BtnDark>
       </div>
     </section>
   );

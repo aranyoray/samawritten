@@ -63,7 +63,7 @@ export function Positioning() {
         <p style={{ fontSize:15, fontWeight:300, lineHeight:1.85, color:tokens.mid }}>
           Your Apple Watch can detect AFib. But it can&apos;t call your daughter when you collapse at 2am. It can&apos;t text your cardiologist your last 72 hours of data. And it{" "}
           <strong style={{ color:tokens.text, fontWeight:500 }}>definitely can&apos;t predict a heart failure episode six days before it happens.</strong>{" "}
-          SamaBeat can.
+          SamaWritten can.
         </p>
       </div>
     </section>
@@ -518,7 +518,7 @@ export function Cellular() {
   return (
     <section className="section-pad" style={{ background:tokens.black }}>
       <div className="reveal">
-        <SectionTitle light>Phone dead at 3am?<br /><strong>SamaBeat still calls for help.</strong></SectionTitle>
+        <SectionTitle light>Phone dead at 3am?<br /><strong>SamaWritten still calls for help.</strong></SectionTitle>
       </div>
       <div className="grid-2" style={{ gap:14, marginTop:56 }}>
         {CELLULAR_SCENARIOS.map((s, i) => (
@@ -651,8 +651,8 @@ export function Market() {
         <div className="reveal" style={{ zIndex: 1 }}>
           {[
             <>6.2 million Americans live with heart failure. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>23% are readmitted within 30 days.</strong> The total annual treatment burden is $30.7B — and climbing.</>,
-            <>Apple Watch detects AFib. But it can&apos;t predict decompensation, can&apos;t contact emergency services independently, and isn&apos;t cleared for clinical remote patient monitoring. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>SamaBeat fills every gap.</strong></>,
-            <>With FDA 510(k) pathway underway, CMS RPM reimbursement eligibility, and a direct-to-consumer model starting at $199, SamaBeat is both a <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>consumer product and a clinical tool</strong> — two revenue streams from one device.</>,
+            <>Apple Watch detects AFib. But it can&apos;t predict decompensation, can&apos;t contact emergency services independently, and isn&apos;t cleared for clinical remote patient monitoring. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>SamaWritten fills every gap.</strong></>,
+            <>With FDA 510(k) pathway underway, CMS RPM reimbursement eligibility, and a direct-to-consumer model starting at $199, SamaWritten is both a <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>consumer product and a clinical tool</strong> — two revenue streams from one device.</>,
           ].map((text, i) => (
             <p key={i} style={{ fontSize:14.5, fontWeight:300, lineHeight:1.85, color:"rgba(255,255,255,0.44)", marginBottom:20 }}>{text}</p>
           ))}
@@ -694,8 +694,8 @@ export function CTA() {
           <strong style={{ color:tokens.text, fontWeight:500 }}>a guardian that never sleeps.</strong>
         </p>
         <div style={{ display:"flex", gap:14, justifyContent:"center", alignItems:"center", marginBottom:20, flexWrap: "wrap" }}>
-          <BtnDark onClick={openModal} style={{ fontSize:14, padding:"16px 36px" }}>Reserve SamaBeat · $199</BtnDark>
-          <a href="mailto:hi@samaritan.com" style={{ fontSize:13, fontWeight:300, color:tokens.mid, textDecoration: "none", display:"flex", alignItems:"center", gap:6 }}>Talk to us →</a>
+          <BtnDark onClick={openModal} style={{ fontSize:14, padding:"16px 36px" }}>Reserve SamaWritten · $199</BtnDark>
+          <a href="mailto:hi@samawritten.com" style={{ fontSize:13, fontWeight:300, color:tokens.mid, textDecoration: "none", display:"flex", alignItems:"center", gap:6 }}>Talk to us →</a>
         </div>
       </div>
     </section>
@@ -717,9 +717,17 @@ export function Footer() {
           <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
         </div>
       </div>
-      <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-        <a href="mailto:hi@samaritan.com" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.accent, textDecoration:"none", borderBottom: `1px solid ${tokens.accent}` }}>
-          hi@samaritan.com
+      <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
+        <a href="/privacy" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.mid, textDecoration:"none", transition:"color 0.2s" }}
+          onMouseEnter={e => e.currentTarget.style.color = tokens.accent}
+          onMouseLeave={e => e.currentTarget.style.color = tokens.mid}
+        >Privacy</a>
+        <a href="/terms" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.mid, textDecoration:"none", transition:"color 0.2s" }}
+          onMouseEnter={e => e.currentTarget.style.color = tokens.accent}
+          onMouseLeave={e => e.currentTarget.style.color = tokens.mid}
+        >Terms</a>
+        <a href="mailto:hi@samawritten.com" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.accent, textDecoration:"none", borderBottom: `1px solid ${tokens.accent}` }}>
+          hi@samawritten.com
         </a>
       </div>
     </footer>

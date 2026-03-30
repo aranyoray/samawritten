@@ -54,6 +54,7 @@ export const metadata: Metadata = {
 
 import { WaitlistProvider } from "./context/WaitlistContext";
 import { WaitlistModal } from "./components/ui/WaitlistModal";
+import { CookieBanner } from "./components/ui/CookieBanner";
 
 export default function RootLayout({
   children,
@@ -87,6 +88,7 @@ export default function RootLayout({
         <WaitlistProvider>
           {children}
           <WaitlistModal />
+          <CookieBanner />
         </WaitlistProvider>
       </body>
     </html>
