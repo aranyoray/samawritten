@@ -115,7 +115,7 @@ export function WaitlistModal() {
               Priority Access
             </h2>
             <p style={{ color: tokens.mid, fontSize: 14, lineHeight: 1.6, marginBottom: 28 }}>
-              Join the waitlist to be among the first to experience SamaBeat. 
+              Join the waitlist to be among the first to experience SamaWritten.
               $199 early-bird pricing ends soon.
             </p>
 
@@ -161,7 +161,8 @@ export function WaitlistModal() {
                   style={{ width: 16, height: 16, marginTop: 2, accentColor: tokens.black }}
                 />
                 <span style={{ fontSize: 13, color: tokens.mid, lineHeight: 1.4 }}>
-                  I agree to be contacted via email regarding SamaBeat updates and priority access.
+                  I agree to be contacted via email regarding SamaWritten updates and priority access.
+                  Read our <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: tokens.accent, textDecoration: "none", borderBottom: `1px solid ${tokens.accent}` }} onClick={e => e.stopPropagation()}>Privacy Policy</a>.
                 </span>
               </label>
 

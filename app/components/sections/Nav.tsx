@@ -152,7 +152,7 @@ export function Nav() {
             fontSize: 14, fontWeight: 400, color: tokens.white, textDecoration: "none",
             padding: "16px", borderRadius: 100, background: tokens.black,
             border: "none", cursor: "pointer"
-          }}>Reserve SamaBeat · $199</button>
+          }}>Reserve SamaWritten · $199</button>
         </div>
       </div>
     </>

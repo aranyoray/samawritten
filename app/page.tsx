@@ -5,7 +5,7 @@ import { useReveal, useProgress } from "./hooks";
 import { GLOBAL_CSS, tokens } from "./constants";
 import { Nav, Hero, ProblemStats, LogoCarousel, Positioning, HowItWorks, HealthAndSensorsScroll, Conditions, Cellular, Science, Pricing, Market, CTA, Footer } from "./components/sections";
 
-export default function SamaBeat() {
+export default function SamaWritten() {
   const progress = useProgress();
   useReveal();
 

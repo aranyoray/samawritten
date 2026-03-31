@@ -73,7 +73,7 @@ export const HOW_IT_WORKS_STEPS = [
   { num:"02 — AI understands", title:"On-device machine learning",
     body:"On-device ML fuses all five signals to detect arrhythmias in real time, spot early signs of heart failure decompensation, and predict cardiac events up to 6.5 days before they happen." },
   { num:"03 — Gets you help", title:"Calls for help from your wrist",
-    body:"When SamaBeat detects a crisis, it vibrates to confirm. No response in 30 seconds? It calls your emergency contacts and sends your GPS location + ECG data directly over cellular." },
+    body:"When SamaWritten detects a crisis, it vibrates to confirm. No response in 30 seconds? It calls your emergency contacts and sends your GPS location + ECG data directly over cellular." },
 ];
 
 export const LEFT_FEATURES = [

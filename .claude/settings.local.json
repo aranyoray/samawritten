@@ -3,6 +3,20 @@
     "allow": [
       "Bash(npx next:*)",
       "Bash(ls \"C:/Users/11ara/github/samawritten/app/\\(routes\\)/\")"
+      "Bash(mkdir -p \"U:/samawrittenweb/samawritten/app/\\(legal\\)/privacy\")",
+      "Bash(mkdir -p \"U:/samawrittenweb/samawritten/app/\\(legal\\)/terms\")",
+      "Bash(npm run:*)",
+      "Bash(npx next:*)",
+      "Bash(npm install:*)",
+      "Bash(B=~/.claude/skills/gstack/browse/dist/browse)",
+      "Bash($B goto:*)",
+      "Bash($B snapshot:*)",
+      "Bash($B console:*)",
+      "Bash($B click:*)",
+      "Bash($B screenshot:*)",
+      "Bash($B viewport:*)",
+      "Bash($B js:*)"
+
     ]
   }
 }
