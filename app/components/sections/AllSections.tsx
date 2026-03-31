@@ -63,6 +63,7 @@ const CAROUSEL_LOGOS = [
 export function LogoCarousel() {
   return (
     <section style={{ background: tokens.white, overflow: "hidden", padding: "20px 0 30px 0", borderBottom: `1px solid ${tokens.border}` }}>
+      <Mono style={{ display: "block", textAlign: "center", fontSize: 12, letterSpacing: "0.2em", color: tokens.dim, textTransform: "uppercase", marginBottom: 20 }}>Our Ecosystem</Mono>
       <style>{`
         @keyframes scroll-left {
           0% { transform: translateX(0); }
