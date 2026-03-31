@@ -89,10 +89,15 @@ export function LogoCarousel() {
           filter: grayscale(0);
         }
       `}</style>
-      <div className="logo-track">
-        {[...CAROUSEL_LOGOS, ...CAROUSEL_LOGOS].map((logo, i) => (
-          <img key={i} src={logo.src} alt={logo.alt} className="carousel-logo" />
-        ))}
+      <div style={{
+        maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+      }}>
+        <div className="logo-track">
+          {[...CAROUSEL_LOGOS, ...CAROUSEL_LOGOS].map((logo, i) => (
+            <img key={i} src={logo.src} alt={logo.alt} className="carousel-logo" />
+          ))}
+        </div>
       </div>
     </section>
   );
