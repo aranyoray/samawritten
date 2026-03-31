@@ -12,13 +12,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: "https://samawritten.com/privacy",
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.3,
     },
     {
       url: "https://samawritten.com/terms",
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.3,
+    },
+    {
+      url: "https://samawritten.com/clinical-trials",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
   ];
 }

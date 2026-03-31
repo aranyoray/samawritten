@@ -64,7 +64,7 @@ export const PROBLEM_STATS = [
   { num:"6.2",   unit:"M",   label:"Americans with heart failure" },
   { num:"$30.7", unit:"B",   label:"Annual treatment cost" },
   { num:"23",    unit:"%",   label:"Readmitted within 30 days" },
-  { num:"8",     unit:"min", label:"Avg 911 response time" },
+  { num:"8",     unit:"min", label:"Avg EMS response time" },
 ];
 
 export const HOW_IT_WORKS_STEPS = [
@@ -83,7 +83,7 @@ export const LEFT_FEATURES = [
 
 export const RIGHT_FEATURES = [
   { tag:"Display",  name:"SpO₂ / RR",      desc:"Multi-wavelength PPG. Blood oxygen ±2%. Continuous respiratory rate estimation." },
-  { tag:"Display",  name:"Emergency SOS",  desc:"30-second confirmation. Auto-calls loved ones + 911 with GPS + ECG over LTE." },
+  { tag:"Display",  name:"Emergency SOS",  desc:"30-second confirmation. Auto-calls loved ones + EMS with GPS + ECG over LTE." },
 ];
 
 export const SENSORS = [
@@ -122,7 +122,7 @@ export const SCIENCE_STATS = [
 
 export const PRICING_PLANS = [
   { tier:"Essential", price:"9.99",  tagline:"For individuals who want peace of mind.",
-    features:["LTE-M cellular connectivity","Emergency auto-call (loved ones + 911)","Caregiver push alerts","Weekly PDF health reports","7-day data history","OTA firmware updates"],
+    features:["LTE-M cellular connectivity","Emergency auto-call (loved ones + EMS)","Caregiver push alerts","Weekly PDF health reports","7-day data history","OTA firmware updates"],
     featured:false, cta:"Select Essential", href:"#cta" },
   { tier:"Clinical",  price:"19.99", tagline:"For patients, caregivers and remote monitoring.",
     features:["Everything in Essential","AI cardiac predictions (6.5-day HF warning)","Doctor portal + FHIR export","90-day data history","Priority alert escalation","RPM-ready data (CMS reimbursable)"],
