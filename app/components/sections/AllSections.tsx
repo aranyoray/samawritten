@@ -773,7 +773,7 @@ export function Footer() {
           SamaWritten
           <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
         </div>
-      </div>
+      </a>
       <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
         <a href="/privacy" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.mid, textDecoration:"none", transition:"color 0.2s" }}
           onMouseEnter={e => e.currentTarget.style.color = tokens.accent}
