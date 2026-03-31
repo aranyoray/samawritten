@@ -680,10 +680,11 @@ export function CTA() {
     <section id="cta" className="reveal" style={{ padding: "120px 24px", textAlign: "center", background: tokens.offWhite }}>
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
-          <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
-            SamaWritten
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
-          </div>
+          <img 
+            src="/SamaWritten-Logo.png" 
+            alt="SamaWritten Logo" 
+            style={{ height: 26, width: "auto" }} 
+          />
         </div>
         <h2 style={{ fontSize:"clamp(36px,7vw,88px)", fontWeight:200, lineHeight:1, letterSpacing:"-0.04em", marginBottom:24 }}>
           The most powerful<br />cardiac wearable<br /><strong style={{ fontWeight: 700 }}>ever built.</strong>
@@ -712,10 +713,11 @@ export function Footer() {
         }
       `}</style>
       <div>
-        <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
-          SamaWritten
-          <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
-        </div>
+        <img 
+          src="/SamaWritten-Logo.png" 
+          alt="SamaWritten Logo" 
+          style={{ height: 20, width: "auto" }} 
+        />
       </div>
       <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
         <a href="mailto:hi@samaritan.com" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.accent, textDecoration:"none", borderBottom: `1px solid ${tokens.accent}` }}>

@@ -100,8 +100,11 @@ export function WaitlistModal() {
         {!submitted ? (
           <>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: 3, marginBottom: 28 }}>
-              <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.045em", color: tokens.black }}>SamaWritten</div>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: tokens.accent }} />
+              <img 
+                src="/SamaWritten-Logo.png" 
+                alt="SamaWritten Logo" 
+                style={{ height: 24, width: "auto" }} 
+              />
             </div>
             
             <h2 style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.04em", marginBottom: 12 }}>

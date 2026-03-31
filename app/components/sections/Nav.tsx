@@ -57,10 +57,11 @@ export function Nav() {
         transition: "background 0.4s, border-color 0.4s",
       }}>
         <div style={{ cursor: "pointer" }} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
-            SamaWritten
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
-          </div>
+          <img 
+            src="/SamaWritten-Logo.png" 
+            alt="SamaWritten Logo" 
+            style={{ height: 22, width: "auto", display: "block" }} 
+          />
         </div>
 
         <div className="nav-links" style={{ gap: 28, alignItems: "center" }}>
