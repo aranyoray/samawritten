@@ -74,7 +74,7 @@ export function Hero() {
           .hero-h1 { order: 2; }
           .hero-p { order: 4; }
           .hero-tags { order: 5; margin-bottom: 30px; justify-content: center; }
-          .hero-btns { order: 6; justify-content: center; }
+          .hero-btns { order: 6; justify-content: center; margin-bottom: 32px !important; }
           .vitals-strip { order: 7; justify-content: center; }
           
           .hero-watch-img {
