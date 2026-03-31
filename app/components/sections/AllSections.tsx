@@ -62,7 +62,7 @@ const CAROUSEL_LOGOS = [
 
 export function LogoCarousel() {
   return (
-    <section style={{ background: tokens.black, overflow: "hidden", padding: "40px 0", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+    <section style={{ background: tokens.white, overflow: "hidden", padding: "30px 0", borderBottom: `1px solid ${tokens.border}` }}>
       <style>{`
         @keyframes scroll-left {
           0% { transform: translateX(0); }
@@ -77,15 +77,16 @@ export function LogoCarousel() {
           animation-play-state: paused;
         }
         .carousel-logo {
-          height: 36px;
+          height: 32px;
           margin: 0 48px;
-          opacity: 0.5;
-          filter: brightness(0) invert(1);
-          transition: opacity 0.3s;
+          opacity: 1;
+          transition: all 0.3s;
           flex-shrink: 0;
+          mix-blend-mode: multiply;
         }
         .carousel-logo:hover {
-          opacity: 0.9;
+          opacity: 1;
+          filter: grayscale(0);
         }
       `}</style>
       <div className="logo-track">
