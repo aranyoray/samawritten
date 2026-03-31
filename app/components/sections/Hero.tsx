@@ -7,7 +7,7 @@ export function Hero() {
   
   return (
     <section className="hero-section" style={{
-      minHeight: "100vh", paddingTop: 80,
+      minHeight: "100vh", paddingTop: 116,
       display: "grid",
       alignItems: "center", position: "relative", overflow: "hidden",
     }}>
@@ -74,7 +74,7 @@ export function Hero() {
           .hero-h1 { order: 2; }
           .hero-p { order: 4; }
           .hero-tags { order: 5; margin-bottom: 30px; justify-content: center; }
-          .hero-btns { order: 6; justify-content: center; margin-bottom: 32px !important; }
+          .hero-btns { order: 6; justify-content: center; }
           .vitals-strip { order: 7; justify-content: center; }
           
           .hero-watch-img {
@@ -120,7 +120,7 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="hero-child hero-btns" style={{ display: "flex", gap: 14, alignItems: "center", marginBottom: 64, flexWrap: "wrap" }}>
+      <div className="hero-child hero-btns" style={{ display: "flex", gap: 14, alignItems: "center", marginBottom: 24, flexWrap: "wrap" }}>
         <BtnDark onClick={openModal}>Reserve SamaBeat</BtnDark>
       </div>
     </section>

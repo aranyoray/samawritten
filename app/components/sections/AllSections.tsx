@@ -62,7 +62,7 @@ const CAROUSEL_LOGOS = [
 
 export function LogoCarousel() {
   return (
-    <section className="logo-carousel-section" style={{ background: tokens.white, overflow: "hidden", padding: "32px 0", borderBottom: `1px solid ${tokens.border}` }}>
+    <section style={{ background: tokens.white, overflow: "hidden", padding: "20px 0 30px 0", borderBottom: `1px solid ${tokens.border}` }}>
       <style>{`
         @keyframes scroll-left {
           0% { transform: translateX(0); }
@@ -77,10 +77,9 @@ export function LogoCarousel() {
           animation-play-state: paused;
         }
         .carousel-logo {
-          height: 32px;
+          height: 48px;
           margin: 0 48px;
-          opacity: 0.4;
-          filter: grayscale(1);
+          opacity: 1;
           transition: all 0.3s;
           flex-shrink: 0;
           mix-blend-mode: multiply;
@@ -88,10 +87,6 @@ export function LogoCarousel() {
         .carousel-logo:hover {
           opacity: 1;
           filter: grayscale(0);
-        }
-        @media (max-width: 1024px) {
-          .logo-carousel-section { padding: 20px 0 !important; }
-          .carousel-logo { height: 22px; margin: 0 24px; }
         }
       `}</style>
       <div className="logo-track">
@@ -423,7 +418,7 @@ export function HealthAndSensorsScroll() {
           .watch-fixed-box {
             display: flex !important;
             position: sticky !important;
-            top: 60px;
+            top: 96px;
             height: 220px;
             align-items: center;
             justify-content: center;
@@ -768,17 +763,17 @@ export function Footer() {
           .footer-container { padding: 48px 24px !important; justify-content: center !important; text-align: center !important; }
         }
       `}</style>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <img 
-          src="/SamaWritten-Logo.png" 
-          alt="SamaWritten Logo" 
-          style={{ height: 20, width: "auto" }} 
+      <a href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+        <img
+          src="/SamaWritten-Logo.png"
+          alt="SamaWritten Logo"
+          style={{ height: 20, width: "auto" }}
         />
         <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
           SamaWritten
           <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
         </div>
-      </div>
+      </a>
       <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
         <a href="mailto:hi@samaritan.com" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.accent, textDecoration:"none", borderBottom: `1px solid ${tokens.accent}` }}>
           hi@samaritan.com
