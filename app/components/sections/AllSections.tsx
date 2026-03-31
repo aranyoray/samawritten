@@ -53,11 +53,11 @@ export function ProblemStats() {
 
 // ── LOGO CAROUSEL ────────────────────────────────────────────────
 const CAROUSEL_LOGOS = [
-  { src: "/crousel/anubhav-life-care-diagnostic-samawritten-kolkata.png", alt: "Anubhav Life Care Diagnostic" },
-  { src: "/crousel/community-health-network-samawritten-indiana.png", alt: "Community Health Network" },
-  { src: "/crousel/criticare-asia-samawritten-mumbai.png", alt: "Criticare Asia" },
-  { src: "/crousel/siemens-healthineers-samawritten-chicago-illinois.png", alt: "Siemens Healthineers" },
-  { src: "/crousel/startup-yale-samawritten-new-haven.png", alt: "Yale Startup" },
+  { src: "/crousel/anubhav-life-care-diagnostic-samawritten-kolkata.png", alt: "Anubhav Life Care Diagnostic", href: "https://www.anubhavlifecare.in/" },
+  { src: "/crousel/community-health-network-samawritten-indiana.png", alt: "Community Health Network", href: "https://www.ecommunity.com/services/heart-and-vascular/cardiology" },
+  { src: "/crousel/criticare-asia-samawritten-mumbai.png", alt: "Criticare Asia", href: "https://www.criticareasiahospital.com/specialitiess/cardiology" },
+  { src: "/crousel/siemens-healthineers-samawritten-chicago-illinois.png", alt: "Siemens Healthineers", href: "https://www.siemens-healthineers.com/shift-innovation-ecosystem" },
+  { src: "/crousel/startup-yale-samawritten-new-haven.png", alt: "Yale Startup", href: "https://startup.yale.edu/" },
 ];
 
 export function LogoCarousel() {
@@ -95,7 +95,9 @@ export function LogoCarousel() {
       }}>
         <div className="logo-track">
           {[...CAROUSEL_LOGOS, ...CAROUSEL_LOGOS].map((logo, i) => (
-            <img key={i} src={logo.src} alt={logo.alt} className="carousel-logo" />
+            <a key={i} href={logo.href} target="_blank" rel="noopener noreferrer">
+              <img src={logo.src} alt={logo.alt} className="carousel-logo" />
+            </a>
           ))}
         </div>
       </div>
