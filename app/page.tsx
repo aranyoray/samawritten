@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useReveal, useProgress } from "./hooks";
 import { GLOBAL_CSS, tokens } from "./constants";
-import { Nav, Hero, ProblemStats, Positioning, HowItWorks, HealthAndSensorsScroll, Conditions, Cellular, Science, Pricing, Market, CTA, Footer } from "./components/sections";
+import { Nav, Hero, ProblemStats, LogoCarousel, Positioning, HowItWorks, HealthAndSensorsScroll, Conditions, Cellular, Science, Pricing, Market, CTA, Footer } from "./components/sections";
 
 export default function SamaWritten() {
   const progress = useProgress();
@@ -21,6 +21,7 @@ export default function SamaWritten() {
       <div style={{ position:"fixed", top:0, left:0, height:2, width:`${progress}%`, background:tokens.accent, zIndex:300, transition:"width 0.08s linear" }} />
       <Nav />
       <Hero />
+      <LogoCarousel />
       <ProblemStats />
       <Positioning />
       <HowItWorks />

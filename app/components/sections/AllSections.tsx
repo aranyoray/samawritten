@@ -51,6 +51,53 @@ export function ProblemStats() {
   );
 }
 
+// ── LOGO CAROUSEL ────────────────────────────────────────────────
+const CAROUSEL_LOGOS = [
+  { src: "/crousel/anubhav-life-care-diagnostic-samawritten-kolkata.png", alt: "Anubhav Life Care Diagnostic" },
+  { src: "/crousel/community-health-network-samawritten-indiana.png", alt: "Community Health Network" },
+  { src: "/crousel/criticare-asia-samawritten-mumbai.png", alt: "Criticare Asia" },
+  { src: "/crousel/siemens-healthineers-samawritten-chicago-illinois.png", alt: "Siemens Healthineers" },
+  { src: "/crousel/startup-yale-samawritten-new-haven.png", alt: "Yale Startup" },
+];
+
+export function LogoCarousel() {
+  return (
+    <section style={{ background: tokens.white, overflow: "hidden", padding: "20px 0 30px 0", borderBottom: `1px solid ${tokens.border}` }}>
+      <style>{`
+        @keyframes scroll-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .logo-track {
+          display: flex;
+          width: max-content;
+          animation: scroll-left 25s linear infinite;
+        }
+        .logo-track:hover {
+          animation-play-state: paused;
+        }
+        .carousel-logo {
+          height: 48px;
+          margin: 0 48px;
+          opacity: 1;
+          transition: all 0.3s;
+          flex-shrink: 0;
+          mix-blend-mode: multiply;
+        }
+        .carousel-logo:hover {
+          opacity: 1;
+          filter: grayscale(0);
+        }
+      `}</style>
+      <div className="logo-track">
+        {[...CAROUSEL_LOGOS, ...CAROUSEL_LOGOS].map((logo, i) => (
+          <img key={i} src={logo.src} alt={logo.alt} className="carousel-logo" />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ── POSITIONING ───────────────────────────────────────────────────
 export function Positioning() {
   return (
@@ -371,7 +418,7 @@ export function HealthAndSensorsScroll() {
           .watch-fixed-box {
             display: flex !important;
             position: sticky !important;
-            top: 60px;
+            top: 96px;
             height: 220px;
             align-items: center;
             justify-content: center;
@@ -679,7 +726,12 @@ export function CTA() {
   return (
     <section id="cta" className="reveal" style={{ padding: "120px 24px", textAlign: "center", background: tokens.offWhite }}>
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 12, marginBottom: 32 }}>
+          <img 
+            src="/SamaWritten-Logo.png" 
+            alt="SamaWritten Logo" 
+            style={{ height: 26, width: "auto" }} 
+          />
           <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
             SamaWritten
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
@@ -711,7 +763,12 @@ export function Footer() {
           .footer-container { padding: 48px 24px !important; justify-content: center !important; text-align: center !important; }
         }
       `}</style>
-      <div>
+      <a href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+        <img
+          src="/SamaWritten-Logo.png"
+          alt="SamaWritten Logo"
+          style={{ height: 20, width: "auto" }}
+        />
         <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
           SamaWritten
           <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />

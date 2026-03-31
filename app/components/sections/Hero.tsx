@@ -7,7 +7,7 @@ export function Hero() {
   
   return (
     <section className="hero-section" style={{
-      minHeight: "100vh", paddingTop: 80,
+      minHeight: "100vh", paddingTop: 116,
       display: "grid",
       alignItems: "center", position: "relative", overflow: "hidden",
     }}>

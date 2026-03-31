@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "SamaWritten",
     images: [
       {
-        url: "/samawritten.png",
+        url: "/SamaWritten-Logo.png",
         width: 1200,
         height: 630,
         alt: "SamaWritten Cardiac Wearable",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SamaWritten — Advanced Cardiac Intelligence",
     description: "The most powerful cardiac wearable ever built. Five sensors. Twenty conditions.",
-    images: ["/samawritten.png"],
+    images: ["/SamaWritten-Logo.png"],
   },
   robots: {
     index: true,

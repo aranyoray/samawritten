@@ -1,6 +1,8 @@
 {
   "permissions": {
     "allow": [
+      "Bash(npx next:*)",
+      "Bash(ls \"C:/Users/11ara/github/samawritten/app/\\(routes\\)/\")"
       "Bash(mkdir -p \"U:/samawrittenweb/samawritten/app/\\(legal\\)/privacy\")",
       "Bash(mkdir -p \"U:/samawrittenweb/samawritten/app/\\(legal\\)/terms\")",
       "Bash(npm run:*)",
@@ -14,6 +16,7 @@
       "Bash($B screenshot:*)",
       "Bash($B viewport:*)",
       "Bash($B js:*)"
+
     ]
   }
 }

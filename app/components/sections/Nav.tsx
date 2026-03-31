@@ -25,6 +25,31 @@ export function Nav() {
   return (
     <>
       <style>{`
+        .top-banner {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 210;
+          height: 36px;
+          display: flex; align-items: center; justify-content: center;
+          background: ${tokens.accent};
+          font-size: 14px; font-weight: 500; letter-spacing: 0.01em;
+          color: ${tokens.white};
+          padding: 0 16px;
+          text-align: center;
+          gap: 4px;
+        }
+        .top-banner-text { white-space: nowrap; }
+        .top-banner a {
+          color: ${tokens.white};
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        .top-banner a:hover { opacity: 0.85; }
+        @media (max-width: 480px) {
+          .top-banner { font-size: 12px; height: 32px; }
+          .top-banner-text { white-space: normal; }
+          .nav-container { top: 32px !important; }
+        }
         .nav-container {
           padding: 0 56px;
         }
@@ -46,9 +71,14 @@ export function Nav() {
           }
         }
       `}</style>
-      
+
+      <div className="top-banner">
+        <span className="top-banner-text">Recruiting for clinical trial II — age 50+ Mumbaikars</span>
+        <a href="/clinical-trials">sign up now</a>
+      </div>
+
       <nav className="nav-container" style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
+        position: "fixed", top: 36, left: 0, right: 0, zIndex: 200,
         height: 60,
         display: "flex", justifyContent: "space-between", alignItems: "center",
         background: scrolled ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.7)",
@@ -56,12 +86,17 @@ export function Nav() {
         borderBottom: `1px solid ${scrolled ? tokens.border : "transparent"}`,
         transition: "background 0.4s, border-color 0.4s",
       }}>
-        <div style={{ cursor: "pointer" }} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        <a href="/" style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+          <img 
+            src="/SamaWritten-Logo.png" 
+            alt="SamaWritten Logo" 
+            style={{ height: 22, width: "auto" }} 
+          />
           <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
             SamaWritten
             <span style={{ width: 5, height: 5, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
           </div>
-        </div>
+        </a>
 
         <div className="nav-links" style={{ gap: 28, alignItems: "center" }}>
           {navLinks.map(([href, label]) => (
