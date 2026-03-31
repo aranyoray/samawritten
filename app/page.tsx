@@ -21,6 +21,7 @@ export default function SamaBeat() {
       <div style={{ position:"fixed", top:0, left:0, height:2, width:`${progress}%`, background:tokens.accent, zIndex:300, transition:"width 0.08s linear" }} />
       <Nav />
       <Hero />
+      <LogoCarousel />
       <ProblemStats />
       <Positioning />
       <HowItWorks />
@@ -29,7 +30,6 @@ export default function SamaBeat() {
       <Cellular />
       <Science />
       <Pricing />
-      <LogoCarousel />
       <Market />
       <CTA />
       <Footer />
