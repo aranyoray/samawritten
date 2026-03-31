@@ -51,6 +51,52 @@ export function ProblemStats() {
   );
 }
 
+// ── LOGO CAROUSEL ────────────────────────────────────────────────
+const CAROUSEL_LOGOS = [
+  { src: "/crousel/anubhav-life-care-diagnostic-samawritten-kolkata.png", alt: "Anubhav Life Care Diagnostic" },
+  { src: "/crousel/community-health-network-samawritten-indiana.png", alt: "Community Health Network" },
+  { src: "/crousel/criticare-asia-samawritten-mumbai.png", alt: "Criticare Asia" },
+  { src: "/crousel/siemens-healthineers-samawritten-chicago-illinois.png", alt: "Siemens Healthineers" },
+  { src: "/crousel/startup-yale-samawritten-new-haven.png", alt: "Yale Startup" },
+];
+
+export function LogoCarousel() {
+  return (
+    <section style={{ background: tokens.black, overflow: "hidden", padding: "40px 0", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+      <style>{`
+        @keyframes scroll-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .logo-track {
+          display: flex;
+          width: max-content;
+          animation: scroll-left 25s linear infinite;
+        }
+        .logo-track:hover {
+          animation-play-state: paused;
+        }
+        .carousel-logo {
+          height: 36px;
+          margin: 0 48px;
+          opacity: 0.5;
+          filter: brightness(0) invert(1);
+          transition: opacity 0.3s;
+          flex-shrink: 0;
+        }
+        .carousel-logo:hover {
+          opacity: 0.9;
+        }
+      `}</style>
+      <div className="logo-track">
+        {[...CAROUSEL_LOGOS, ...CAROUSEL_LOGOS].map((logo, i) => (
+          <img key={i} src={logo.src} alt={logo.alt} className="carousel-logo" />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ── POSITIONING ───────────────────────────────────────────────────
 export function Positioning() {
   return (
