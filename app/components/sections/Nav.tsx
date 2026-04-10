@@ -19,7 +19,7 @@ export function Nav() {
     ["#how", "How it works"],
     ["#features", "Features"],
     ["#conditions", "Conditions"],
-    ["#pricing", "Pricing"]
+    ["#cta", "Join Waitlist"]
   ];
 
   return (
@@ -113,7 +113,7 @@ export function Nav() {
           }}
             onMouseEnter={e => e.currentTarget.style.opacity = "0.72"}
             onMouseLeave={e => e.currentTarget.style.opacity = "1"}
-          >Reserve · $199</button>
+          >Join Waitlist</button>
         </div>
 
         <button 
@@ -152,7 +152,7 @@ export function Nav() {
             fontSize: 14, fontWeight: 400, color: tokens.white, textDecoration: "none",
             padding: "16px", borderRadius: 100, background: tokens.black,
             border: "none", cursor: "pointer"
-          }}>Reserve SamaWritten · $199</button>
+          }}>Join Waitlist</button>
         </div>
       </div>
     </>

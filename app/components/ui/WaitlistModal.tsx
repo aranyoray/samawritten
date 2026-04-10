@@ -116,7 +116,7 @@ export function WaitlistModal() {
             </h2>
             <p style={{ color: tokens.mid, fontSize: 14, lineHeight: 1.6, marginBottom: 28 }}>
               Join the waitlist to be among the first to experience SamaWritten.
-              $199 early-bird pricing ends soon.
+              Be first in line when we launch.
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>

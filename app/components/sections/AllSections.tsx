@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useReveal } from "../../hooks";
 import { useWaitlist } from "../../context/WaitlistContext";
 import { Mono, Eyebrow, SectionTitle, BtnDark } from "../ui";
-import { tokens, PROBLEM_STATS, HOW_IT_WORKS_STEPS, LEFT_FEATURES, RIGHT_FEATURES, SENSORS, CONDITION_TIERS, CELLULAR_SCENARIOS, SCIENCE_STATS, PRICING_PLANS, MARKET_NUMBERS } from "@/app/constants";
+import { tokens, PROBLEM_STATS, HOW_IT_WORKS_STEPS, LEFT_FEATURES, RIGHT_FEATURES, SENSORS, CONDITION_TIERS, CELLULAR_SCENARIOS, SCIENCE_STATS, VALIDATION_PRIMARY, VALIDATION_SECONDARY, MARKET_NUMBERS } from "@/app/constants";
 
 const RESPONSIVE_STYLES = `
   .section-pad { padding: 100px 56px; }
@@ -631,69 +631,131 @@ export function Science() {
   );
 }
 
-// ── PRICING ───────────────────────────────────────────────────────
-export function Pricing() {
+// ── CLINICALLY VALIDATED ──────────────────────────────────────────
+export function ClinicallyValidated() {
+  const { openModal } = useWaitlist();
   return (
-    <section id="pricing" className="section-pad" style={{ background:tokens.white }}>
+    <section className="section-pad" style={{ background:tokens.white, borderTop:`1px solid ${tokens.border}` }}>
       <div className="reveal">
-        <SectionTitle>$199 device.<br /><strong>Plans from $9.99/mo.</strong></SectionTitle>
+        <SectionTitle>Clinically validated<br /><strong>in the field.</strong></SectionTitle>
+        <p style={{ fontSize:15, fontWeight:300, color:tokens.mid, marginTop:16, maxWidth:640 }}>
+          175 participants. NABL-accredited lab. Monk Skin Tone Scale 4–10. West Bengal, India.
+        </p>
       </div>
-      <div className="grid-3" style={{ gap:20, marginTop:56 }}>
-        {PRICING_PLANS.map((p, i) => (
-          <div key={i} className={`reveal d${i+1}`} style={{
-            border:`1px solid ${p.featured ? tokens.accent : tokens.border}`,
-            borderRadius:20, padding:36,
-            display:"flex", flexDirection:"column",
-            position:"relative",
-            boxShadow: p.featured ? `0 0 0 1px ${tokens.accent}, 0 12px 40px rgba(26,107,255,0.1)` : "none",
-          }}>
-            {p.featured && (
-              <div style={{
-                position:"absolute", top:-12, left:"50%", transform:"translateX(-50%)",
-                background:tokens.accent, color:tokens.white,
-                fontFamily:"'DM Mono',monospace", fontSize:8.5, letterSpacing:"0.2em",
-                textTransform:"uppercase", padding:"5px 14px", borderRadius:100,
-              }}>Most Popular</div>
-            )}
-            <Mono style={{ fontSize:9.5, letterSpacing:"0.3em", color:tokens.dim, textTransform:"uppercase", marginBottom:14 }}>{p.tier}</Mono>
-            <div style={{ display:"flex", alignItems:"baseline", gap:4, marginBottom:6 }}>
-              {p.price ? (
-                <>
-                  <span style={{ fontSize:22, fontWeight:300, color:tokens.mid }}>$</span>
-                  <span style={{ fontSize:52, fontWeight:200, letterSpacing:"-0.04em", lineHeight:1 }}>{p.price}</span>
-                  <Mono style={{ fontSize:10, color:tokens.dim, letterSpacing:"0.1em" }}>/month</Mono>
-                </>
-              ) : (
-                <span style={{ fontSize:36, fontWeight:200, color:tokens.mid }}>Custom</span>
-              )}
+
+      {/* Product line — SamaBeat vs SamaBeat Pro */}
+      <div className="grid-2" style={{ gap:24, marginTop:56 }}>
+        {/* SamaBeat */}
+        <div className="reveal d1" style={{ border:`1px solid ${tokens.border}`, borderRadius:20, padding:40, display:"flex", flexDirection:"column", gap:16 }}>
+          <Mono style={{ fontSize:9.5, letterSpacing:"0.3em", color:tokens.dim, textTransform:"uppercase" }}>Finger Oximeter</Mono>
+          <div style={{ display:"flex", alignItems:"baseline", gap:8 }}>
+            <span style={{ fontSize:28, fontWeight:300, letterSpacing:"-0.02em" }}>SamaBeat</span>
+          </div>
+          <p style={{ fontSize:13, fontWeight:300, color:tokens.mid, lineHeight:1.6 }}>
+            Battery-free, USB-powered. Clinical-grade SpO&#8322;, heart rate, and haemoglobin screening in a single compact sensor.
+          </p>
+          <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:8, marginTop:8 }}>
+            {["SpO₂ ± pulse rate","Haemoglobin estimation","Anaemia screening","Battery-free — USB powered","89 mW total power draw"].map((f, j) => (
+              <li key={j} style={{ fontSize:12.5, fontWeight:300, color:tokens.mid, display:"flex", gap:10, alignItems:"flex-start", lineHeight:1.5 }}>
+                <span style={{ color:tokens.green, fontWeight:600, flexShrink:0 }}>✓</span>{f}
+              </li>
+            ))}
+          </ul>
+          <button onClick={openModal} style={{
+            marginTop:"auto", display:"block", width:"100%", textAlign:"center", padding:13, borderRadius:100,
+            fontSize:12.5, fontWeight:500, letterSpacing:"0.02em", cursor:"pointer", transition:"opacity 0.2s",
+            background:tokens.surface, color:tokens.black, border:`1px solid ${tokens.border}`,
+          }}
+            onMouseEnter={e=>e.currentTarget.style.opacity="0.75"}
+            onMouseLeave={e=>e.currentTarget.style.opacity="1"}
+          >Join Waitlist</button>
+        </div>
+
+        {/* SamaBeat Pro */}
+        <div className="reveal d2" style={{
+          border:`1px solid ${tokens.accent}`, borderRadius:20, padding:40,
+          display:"flex", flexDirection:"column", gap:16, position:"relative",
+          boxShadow:`0 0 0 1px ${tokens.accent}, 0 12px 40px rgba(26,107,255,0.1)`,
+        }}>
+          <div style={{
+            position:"absolute", top:-12, left:"50%", transform:"translateX(-50%)",
+            background:tokens.accent, color:tokens.white,
+            fontFamily:"'DM Mono',monospace", fontSize:8.5, letterSpacing:"0.2em",
+            textTransform:"uppercase", padding:"5px 14px", borderRadius:100,
+          }}>Full Platform</div>
+          <Mono style={{ fontSize:9.5, letterSpacing:"0.3em", color:tokens.dim, textTransform:"uppercase" }}>Wrist Bracelet</Mono>
+          <div style={{ display:"flex", alignItems:"baseline", gap:8 }}>
+            <span style={{ fontSize:28, fontWeight:300, letterSpacing:"-0.02em" }}>SamaBeat</span>
+            <span style={{ fontSize:28, fontWeight:500, letterSpacing:"-0.02em", color:tokens.accent }}>Pro</span>
+          </div>
+          <p style={{ fontSize:13, fontWeight:300, color:tokens.mid, lineHeight:1.6 }}>
+            Always-on wrist bracelet with LTE-M cellular, AI cardiac predictions, and 24/7 continuous monitoring. Everything SamaBeat measures — plus everything else.
+          </p>
+          <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:8, marginTop:8 }}>
+            {["Everything in SamaBeat","Continuous 24/7 monitoring","LTE-M cellular connectivity","AI cardiac predictions","Emergency auto-call","Caregiver alerts + doctor portal"].map((f, j) => (
+              <li key={j} style={{ fontSize:12.5, fontWeight:300, color:tokens.mid, display:"flex", gap:10, alignItems:"flex-start", lineHeight:1.5 }}>
+                <span style={{ color:tokens.green, fontWeight:600, flexShrink:0 }}>✓</span>{f}
+              </li>
+            ))}
+          </ul>
+          <button onClick={openModal} style={{
+            marginTop:"auto", display:"block", width:"100%", textAlign:"center", padding:13, borderRadius:100,
+            fontSize:12.5, fontWeight:500, letterSpacing:"0.02em", cursor:"pointer", transition:"opacity 0.2s",
+            background:tokens.accent, color:tokens.white, border:"1px solid transparent",
+          }}
+            onMouseEnter={e=>e.currentTarget.style.opacity="0.75"}
+            onMouseLeave={e=>e.currentTarget.style.opacity="1"}
+          >Join Waitlist</button>
+        </div>
+      </div>
+
+      {/* Primary stat cards */}
+      <div className="grid-4 md-grid-2" style={{ gap:20, marginTop:48 }}>
+        {VALIDATION_PRIMARY.map((s, i) => (
+          <div key={i} className={`reveal d${i+1}`} style={{ background:tokens.offWhite, border:`1px solid ${tokens.border}`, borderRadius:16, padding:32, display:"flex", flexDirection:"column", gap:10 }}>
+            <div style={{ fontSize:44, fontWeight:200, letterSpacing:"-0.04em", lineHeight:1 }}>
+              {s.num}<span style={{ color:tokens.green, fontWeight:400 }}>{s.unit}</span>
             </div>
-            <p style={{ fontSize:12, fontWeight:300, color:tokens.dim, marginBottom:24, paddingBottom:24, borderBottom:`1px solid ${tokens.border}` }}>{p.tagline}</p>
-            <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:10, marginBottom:32, flex:1 }}>
-              {p.features.map((f, j) => (
-                <li key={j} style={{ fontSize:12.5, fontWeight:300, color:tokens.mid, display:"flex", gap:10, alignItems:"flex-start", lineHeight:1.5 }}>
-                  <span style={{ color:tokens.green, fontWeight:600, flexShrink:0 }}>✓</span>{f}
-                </li>
-              ))}
-            </ul>
-            <a href={p.href} style={{
-              display:"block", textAlign:"center", padding:13, borderRadius:100,
-              fontSize:12.5, fontWeight:500, letterSpacing:"0.02em", textDecoration:"none", transition:"opacity 0.2s",
-              background: p.featured ? tokens.accent : tokens.surface,
-              color: p.featured ? tokens.white : tokens.black,
-              border:`1px solid ${p.featured ? "transparent" : tokens.border}`,
-            }}
-              onMouseEnter={e=>e.currentTarget.style.opacity="0.75"}
-              onMouseLeave={e=>e.currentTarget.style.opacity="1"}
-            >{p.cta}</a>
+            <div style={{ fontSize:13, fontWeight:400, lineHeight:1.5 }}>{s.label}</div>
+            <Mono style={{ fontSize:9, letterSpacing:"0.15em", color:tokens.dim, lineHeight:1.5 }}>{s.src}</Mono>
           </div>
         ))}
       </div>
-      <p className="reveal" style={{ marginTop:28, textAlign:"center", fontSize:13, fontWeight:400, color:tokens.black }}>
-        Emergency calling always works — even without an active subscription.
-      </p>
+
+      {/* Skin tone equity callout */}
+      <div className="reveal" style={{
+        marginTop:32, padding:"28px 36px", borderRadius:16,
+        background:"rgba(0,196,140,0.06)", border:`1px solid rgba(0,196,140,0.2)`,
+      }}>
+        <p style={{ fontSize:14, fontWeight:400, lineHeight:1.7, color:tokens.text, maxWidth:720 }}>
+          <span style={{ color:tokens.green, fontWeight:600 }}>Skin tone equity.</span>{" "}
+          SpO&#8322; bias stayed within ±1.5% across all Monk Skin Tone categories, including the darkest tones (Monk 8–10), where most commercial pulse oximeters fail.
+        </p>
+      </div>
+
+      {/* Secondary stats */}
+      <div className="grid-3" style={{ gap:20, marginTop:32 }}>
+        {VALIDATION_SECONDARY.map((s, i) => (
+          <div key={i} className={`reveal d${i+1}`} style={{ padding:"24px 28px", border:`1px solid ${tokens.border}`, borderRadius:12, display:"flex", flexDirection:"column", gap:6 }}>
+            <div style={{ fontSize:32, fontWeight:200, letterSpacing:"-0.03em", lineHeight:1 }}>
+              {s.num}<span style={{ color:tokens.accent, fontWeight:400, fontSize:16 }}>{s.unit}</span>
+            </div>
+            <div style={{ fontSize:12, fontWeight:300, color:tokens.mid, lineHeight:1.5 }}>{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Paper title + CTA */}
+      <div className="reveal" style={{ marginTop:48, textAlign:"center" }}>
+        <p style={{ fontSize:12, fontWeight:300, color:tokens.dim, lineHeight:1.7, maxWidth:680, margin:"0 auto 24px" }}>
+          &ldquo;Validation of a Sub-$10 Battery-Free Multi-Wavelength Photoplethysmography Sensor for Non-Invasive Community Health Screening&rdquo; — Ray &amp; Adig, 2025
+        </p>
+        <BtnDark onClick={openModal}>Request Access</BtnDark>
+      </div>
     </section>
   );
 }
+
 
 // ── MARKET ────────────────────────────────────────────────────────
 export function Market() {
@@ -707,7 +769,7 @@ export function Market() {
           {[
             <>6.2 million Americans live with heart failure. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>23% are readmitted within 30 days.</strong> The total annual treatment burden is $30.7B — and climbing.</>,
             <>Apple Watch detects AFib. But it can&apos;t predict decompensation, can&apos;t contact emergency services independently, and isn&apos;t cleared for clinical remote patient monitoring. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>SamaWritten fills every gap.</strong></>,
-            <>With FDA 510(k) pathway underway, CMS RPM reimbursement eligibility, and a direct-to-consumer model starting at $199, SamaWritten is both a <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>consumer product and a clinical tool</strong> — two revenue streams from one device.</>,
+            <>With FDA 510(k) pathway underway, CMS RPM reimbursement eligibility, and a direct-to-consumer model, SamaWritten is both a <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>consumer product and a clinical tool</strong> — two revenue streams from one device.</>,
           ].map((text, i) => (
             <p key={i} style={{ fontSize:14.5, fontWeight:300, lineHeight:1.85, color:"rgba(255,255,255,0.44)", marginBottom:20 }}>{text}</p>
           ))}
@@ -754,7 +816,7 @@ export function CTA() {
           <strong style={{ color:tokens.text, fontWeight:500 }}>a guardian that never sleeps.</strong>
         </p>
         <div style={{ display:"flex", gap:14, justifyContent:"center", alignItems:"center", marginBottom:20, flexWrap: "wrap" }}>
-          <BtnDark onClick={openModal} style={{ fontSize:14, padding:"16px 36px" }}>Reserve SamaWritten · $199</BtnDark>
+          <BtnDark onClick={openModal} style={{ fontSize:14, padding:"16px 36px" }}>Join Waitlist</BtnDark>
           <a href="mailto:hi@samawritten.com" style={{ fontSize:13, fontWeight:300, color:tokens.mid, textDecoration: "none", display:"flex", alignItems:"center", gap:6 }}>Talk to us →</a>
         </div>
       </div>

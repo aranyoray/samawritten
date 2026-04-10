@@ -111,7 +111,7 @@ export function Hero() {
       <div className="hero-child hero-tags" style={{
         display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 44,
       }}>
-        {["$199 device", "Plans from $9.99/mo", "LTE-M cellular"].map(tag => (
+        {["Clinical-grade sensors", "LTE-M cellular", "AI cardiac predictions"].map(tag => (
           <Mono key={tag} style={{
             fontSize: 9.5, letterSpacing: "0.15em", color: tokens.dim,
             background: tokens.surface, border: `1px solid ${tokens.border}`,

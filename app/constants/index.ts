@@ -120,6 +120,19 @@ export const SCIENCE_STATS = [
   { num:"30",  unit:"min", label:"AF onset prediction before transition from sinus rhythm",    src:"WARN model · Univ. of Luxembourg" },
 ];
 
+export const VALIDATION_PRIMARY = [
+  { num:"−0.31", unit:"%",  label:"SpO₂ mean bias vs Masimo Radical-7",      src:"Bland–Altman · N=175" },
+  { num:"0.91",  unit:"r",  label:"Haemoglobin correlation vs venous CBC",   src:"Sysmex XN-1000 reference" },
+  { num:"88.6",  unit:"%",  label:"Anaemia screening sensitivity",           src:"AUC = 0.92" },
+  { num:"0.98",  unit:"r",  label:"Heart rate correlation vs 12-lead ECG",   src:"Schiller AT-102 reference" },
+];
+
+export const VALIDATION_SECONDARY = [
+  { num:"5",     unit:"sensors", label:"Multi-wavelength PPG sensor array" },
+  { num:"89",    unit:"mW",   label:"Total power draw — battery-free, USB-powered" },
+  { num:"96.2",  unit:"%",    label:"Signal quality acceptance rate on first/second attempt" },
+];
+
 export const PRICING_PLANS = [
   { tier:"Essential", price:"9.99",  tagline:"For individuals who want peace of mind.",
     features:["LTE-M cellular connectivity","Emergency auto-call (loved ones + EMS)","Caregiver push alerts","Weekly PDF health reports","7-day data history","OTA firmware updates"],
@@ -136,5 +149,5 @@ export const MARKET_NUMBERS = [
   { val:"$30.7", em:"B",    label:"Annual HF treatment cost (US)" },
   { val:"6.2",   em:"M",    label:"Americans with heart failure" },
   { val:"23",    em:"%",    label:"30-day readmission rate" },
-  { val:"$19.99",em:"/mo",  label:"Clinical plan · CMS RPM eligible" },
+  { val:"CMS",   em:"RPM",  label:"Reimbursement-eligible clinical tool" },
 ];
