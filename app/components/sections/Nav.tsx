@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useWaitlist } from "../../context/WaitlistContext";
 import { tokens } from "@/app/constants";
@@ -19,7 +20,7 @@ export function Nav() {
     ["#how", "How it works"],
     ["#features", "Features"],
     ["#conditions", "Conditions"],
-    ["#cta", "Join Waitlist"]
+    ["#cta", "Join Waitlist"],
   ];
 
   return (
@@ -73,86 +74,198 @@ export function Nav() {
       `}</style>
 
       <div className="top-banner">
-        <span className="top-banner-text">Recruiting for clinical trial II — age 50+ Mumbaikars</span>
-        <a href="/clinical-trials">sign up now</a>
+        <span className="top-banner-text">
+          Applications open for the global validation program
+        </span>
+        <Link href="/clinical-trials">apply now</Link>
       </div>
 
-      <nav className="nav-container" style={{
-        position: "fixed", top: 36, left: 0, right: 0, zIndex: 200,
-        height: 60,
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        background: scrolled ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.7)",
-        backdropFilter: "blur(16px)",
-        borderBottom: `1px solid ${scrolled ? tokens.border : "transparent"}`,
-        transition: "background 0.4s, border-color 0.4s",
-      }}>
-        <a href="/" style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-          <img 
-            src="/SamaWritten-Logo.png" 
-            alt="SamaWritten Logo" 
-            style={{ height: 22, width: "auto" }} 
+      <nav
+        className="nav-container"
+        style={{
+          position: "fixed",
+          top: 36,
+          left: 0,
+          right: 0,
+          zIndex: 200,
+          height: 60,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          background: scrolled
+            ? "rgba(255,255,255,0.92)"
+            : "rgba(255,255,255,0.7)",
+          backdropFilter: "blur(16px)",
+          borderBottom: `1px solid ${scrolled ? tokens.border : "transparent"}`,
+          transition: "background 0.4s, border-color 0.4s",
+        }}
+      >
+        <Link
+          href="/"
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            textDecoration: "none",
+          }}
+        >
+          <img
+            src="/SamaWritten-Logo.png"
+            alt="SamaWritten Logo"
+            style={{ height: 22, width: "auto" }}
           />
-          <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1, color: tokens.black, display: "flex", alignItems: "baseline" }}>
+          <div
+            style={{
+              fontSize: 22,
+              fontWeight: 700,
+              letterSpacing: "-0.05em",
+              lineHeight: 1,
+              color: tokens.black,
+              display: "flex",
+              alignItems: "baseline",
+            }}
+          >
             SamaWritten
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
+            <span
+              style={{
+                width: 5,
+                height: 5,
+                borderRadius: "50%",
+                background: tokens.accent,
+                marginLeft: 2,
+                display: "inline-block",
+              }}
+            />
           </div>
-        </a>
+        </Link>
 
         <div className="nav-links" style={{ gap: 28, alignItems: "center" }}>
           {navLinks.map(([href, label]) => (
-            <a key={label} href={href} style={{ fontSize: 15, fontWeight: 500, color: tokens.black, textDecoration: "none", letterSpacing: "0.01em", transition: "color 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.color = tokens.accent}
-              onMouseLeave={e => e.currentTarget.style.color = tokens.black}
-            >{label}</a>
+            <a
+              key={label}
+              href={href}
+              style={{
+                fontSize: 15,
+                fontWeight: 500,
+                color: tokens.black,
+                textDecoration: "none",
+                letterSpacing: "0.01em",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = tokens.accent)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = tokens.black)}
+            >
+              {label}
+            </a>
           ))}
-          <button onClick={openModal} style={{
-            fontSize: 12, fontWeight: 400, color: tokens.white, textDecoration: "none",
-            padding: "8px 20px", borderRadius: 100, background: tokens.black,
-            transition: "opacity 0.2s",
-            border: "none", cursor: "pointer"
-          }}
-            onMouseEnter={e => e.currentTarget.style.opacity = "0.72"}
-            onMouseLeave={e => e.currentTarget.style.opacity = "1"}
-          >Join Waitlist</button>
+          <button
+            onClick={openModal}
+            style={{
+              fontSize: 12,
+              fontWeight: 400,
+              color: tokens.white,
+              textDecoration: "none",
+              padding: "8px 20px",
+              borderRadius: 100,
+              background: tokens.black,
+              transition: "opacity 0.2s",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.72")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          >
+            Join Waitlist
+          </button>
         </div>
 
-        <button 
+        <button
           className="mobile-toggle"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           style={{
-            background: "none", border: "none", padding: 0, cursor: "pointer",
-            flexDirection: "column", gap: 5, width: 24, alignItems: "flex-end"
+            background: "none",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+            flexDirection: "column",
+            gap: 5,
+            width: 24,
+            alignItems: "flex-end",
           }}
         >
-          <span style={{ width: 24, height: 1.5, background: tokens.black, borderRadius: 10 }} />
-          <span style={{ width: 16, height: 1.5, background: tokens.black, borderRadius: 10 }} />
+          <span
+            style={{
+              width: 24,
+              height: 1.5,
+              background: tokens.black,
+              borderRadius: 10,
+            }}
+          />
+          <span
+            style={{
+              width: 16,
+              height: 1.5,
+              background: tokens.black,
+              borderRadius: 10,
+            }}
+          />
         </button>
       </nav>
 
-      {/* Mobile Menu Overlay */}
-      <div style={{
-        position: "fixed", inset: 0, zIndex: 190,
-        background: tokens.white,
-        transform: mobileMenuOpen ? "translateY(0)" : "translateY(-100%)",
-        transition: "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-        display: "flex", flexDirection: "column", padding: "100px 24px 40px",
-        gap: 32,
-      }}>
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 190,
+          background: tokens.white,
+          transform: mobileMenuOpen ? "translateY(0)" : "translateY(-100%)",
+          transition: "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+          display: "flex",
+          flexDirection: "column",
+          padding: "100px 24px 40px",
+          gap: 32,
+        }}
+      >
         {navLinks.map(([href, label]) => (
-          <a 
-            key={label} 
-            href={href} 
+          <a
+            key={label}
+            href={href}
             onClick={() => setMobileMenuOpen(false)}
-            style={{ fontSize: 32, fontWeight: 200, color: tokens.black, textDecoration: "none", letterSpacing: "-0.02em" }}
-          >{label}</a>
+            style={{
+              fontSize: 32,
+              fontWeight: 200,
+              color: tokens.black,
+              textDecoration: "none",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {label}
+          </a>
         ))}
         <div style={{ marginTop: "auto" }}>
-          <button onClick={() => { setMobileMenuOpen(false); openModal(); }} style={{
-            display: "block", width: "100%", textAlign: "center",
-            fontSize: 14, fontWeight: 400, color: tokens.white, textDecoration: "none",
-            padding: "16px", borderRadius: 100, background: tokens.black,
-            border: "none", cursor: "pointer"
-          }}>Join Waitlist</button>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              openModal();
+            }}
+            style={{
+              display: "block",
+              width: "100%",
+              textAlign: "center",
+              fontSize: 14,
+              fontWeight: 400,
+              color: tokens.white,
+              textDecoration: "none",
+              padding: "16px",
+              borderRadius: 100,
+              background: tokens.black,
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Join Waitlist
+          </button>
         </div>
       </div>
     </>

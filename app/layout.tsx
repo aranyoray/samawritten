@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { WaitlistProvider } from "./context/WaitlistContext";
+import { WaitlistModal } from "./components/ui/WaitlistModal";
+import { CookieBanner } from "./components/ui/CookieBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,9 +17,21 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://samawritten.com"),
-  title: "SamaWritten — The Most Powerful Cardiac Wearable Ever Built",
-  description: "SamaWritten (formerly SamaBeat) is a 24/7 cardiac monitoring wearable that detects 20+ conditions and alerts nearby samaritans. Cellular built-in, clinical-grade AI.",
-  keywords: ["cardiac wearable", "heart failure monitoring", "AFib detection", "medical ECG watch", "cuffless blood pressure", "remote patient monitoring", "RPM", "SamaWritten", "Samaritan heart monitor", "Mumbai clinical trials", "India cardiac care"],
+  title: "SamaWritten - The Most Powerful Cardiac Wearable Ever Built",
+  description:
+    "SamaWritten (formerly SamaBeat) is a 24/7 cardiac monitoring wearable that detects 20+ conditions and alerts caregivers when intervention is needed. Cellular built in, clinical-grade AI.",
+  keywords: [
+    "cardiac wearable",
+    "heart failure monitoring",
+    "AFib detection",
+    "medical ECG watch",
+    "cuffless blood pressure",
+    "remote patient monitoring",
+    "continuous heart monitoring",
+    "wearable cardiology",
+    "SamaWritten",
+    "global cardiac monitoring",
+  ],
   authors: [{ name: "SamaWritten Team" }],
   icons: {
     icon: "/SamaWritten-Logo.png",
@@ -26,8 +41,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "SamaWritten — Advanced Cardiac Intelligence",
-    description: "24/7 Guardian for your heart. Detects AFib, Heart Failure, and 20+ conditions with medical-grade precision.",
+    title: "SamaWritten - Advanced Cardiac Intelligence",
+    description:
+      "24/7 Guardian for your heart. Detects AFib, Heart Failure, and 20+ conditions with medical-grade precision.",
     url: "https://samawritten.com",
     siteName: "SamaWritten",
     images: [
@@ -35,16 +51,16 @@ export const metadata: Metadata = {
         url: "/samawritten.png",
         width: 1200,
         height: 630,
-        alt: "SamaWritten Cardiac Wearable — Advanced Monitoring",
+        alt: "SamaWritten Cardiac Wearable - Advanced Monitoring",
       },
     ],
-    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SamaWritten — Advanced Cardiac Intelligence",
-    description: "The most powerful cardiac wearable ever built. Five sensors. Twenty conditions.",
+    title: "SamaWritten - Advanced Cardiac Intelligence",
+    description:
+      "The most powerful cardiac wearable ever built. Five sensors. Twenty conditions.",
     images: ["/samawritten.png"],
   },
   verification: {
@@ -63,10 +79,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { WaitlistProvider } from "./context/WaitlistContext";
-import { WaitlistModal } from "./components/ui/WaitlistModal";
-import { CookieBanner } from "./components/ui/CookieBanner";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -84,31 +96,40 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "MedicalWebPage",
-              "name": "SamaWritten — Advanced Cardiac Intelligence",
-              "description": "24/7 cardiac monitoring wearable that detects 20+ conditions and predicts heart failure events with AI.",
-              "url": "https://samawritten.com",
-              "lastReviewed": new Date().toISOString(),
-              "reviewedBy": {
+              name: "SamaWritten - Advanced Cardiac Intelligence",
+              description:
+                "24/7 cardiac monitoring wearable that detects 20+ conditions and predicts heart failure events with AI.",
+              url: "https://samawritten.com",
+              lastReviewed: new Date().toISOString(),
+              reviewedBy: {
                 "@type": "Organization",
-                "name": "SamaWritten Clinical Team"
+                name: "SamaWritten Clinical Team",
               },
-              "mainEntity": {
+              mainEntity: {
                 "@type": "MedicalDevice",
-                "name": "SamaWritten Wearable",
-                "manufacturer": "SamaWritten",
-                "purpose": "24/7 Cardiac condition monitoring and preventative alerting",
-                "relevantSpecialty": "Cardiology",
-                "brand": {
+                name: "SamaWritten Wearable",
+                manufacturer: "SamaWritten",
+                purpose: "24/7 cardiac condition monitoring and proactive alerting",
+                relevantSpecialty: "Cardiology",
+                brand: {
                   "@type": "Brand",
-                  "name": "SamaWritten",
-                  "logo": "https://samawritten.com/SamaWritten-Logo.png"
-                }
+                  name: "SamaWritten",
+                  logo: "https://samawritten.com/SamaWritten-Logo.png",
+                },
               },
-              "about": {
+              about: {
                 "@type": "MedicalCondition",
-                "name": ["Atrial Fibrillation", "Heart Failure", "Tachycardia", "Bradycardia"],
-                "associatedAnatomy": { "@type": "AnatomicalStructure", "name": "Heart" }
-              }
+                name: [
+                  "Atrial Fibrillation",
+                  "Heart Failure",
+                  "Tachycardia",
+                  "Bradycardia",
+                ],
+                associatedAnatomy: {
+                  "@type": "AnatomicalStructure",
+                  name: "Heart",
+                },
+              },
             }),
           }}
         />

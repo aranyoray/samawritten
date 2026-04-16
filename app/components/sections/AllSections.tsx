@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { useReveal } from "../../hooks";
 import { useWaitlist } from "../../context/WaitlistContext";
-import { Mono, Eyebrow, SectionTitle, BtnDark } from "../ui";
+import { Mono, SectionTitle, BtnDark } from "../ui";
 import { tokens, PROBLEM_STATS, HOW_IT_WORKS_STEPS, LEFT_FEATURES, RIGHT_FEATURES, SENSORS, CONDITION_TIERS, CELLULAR_SCENARIOS, SCIENCE_STATS, VALIDATION_PRIMARY, VALIDATION_SECONDARY, MARKET_NUMBERS } from "@/app/constants";
 
 const RESPONSIVE_STYLES = `
@@ -63,7 +63,7 @@ const CAROUSEL_LOGOS = [
 export function LogoCarousel() {
   return (
     <section style={{ background: tokens.white, overflow: "hidden", padding: "20px 0 30px 0", borderBottom: `1px solid ${tokens.border}` }}>
-      <Mono style={{ display: "block", textAlign: "center", fontSize: 12, letterSpacing: "0.2em", color: tokens.dim, textTransform: "uppercase", marginBottom: 20 }}>Our Ecosystem</Mono>
+      <Mono style={{ display: "block", textAlign: "center", fontSize: 12, letterSpacing: "0.2em", color: tokens.dim, textTransform: "uppercase", marginBottom: 20 }}>Global Ecosystem</Mono>
       <style>{`
         @keyframes scroll-left {
           0% { transform: translateX(0); }
@@ -283,9 +283,11 @@ export function HealthAndSensorsScroll() {
     };
     
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     handleScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(rafId);
     };
   }, []);
@@ -355,16 +357,39 @@ export function HealthAndSensorsScroll() {
     };
   }, []);
 
-  // 1. Preload images strongly
+  // Load the first frame immediately, then warm the rest in small batches to avoid blocking the page.
   useEffect(() => {
     if (imagesRef.current.length > 0) return;
-    const loadedImages: HTMLImageElement[] = [];
-    for (let i = 1; i <= 180; i++) {
-      const img = new Image();
-      img.src = `/rotate/ezgif-frame-${String(i).padStart(3, '0')}.jpg`;
-      loadedImages.push(img);
-    }
+    const totalFrames = 180;
+    const loadedImages = Array.from({ length: totalFrames }, () => new Image());
+    const getFrameSrc = (index: number) => `/rotate/ezgif-frame-${String(index + 1).padStart(3, "0")}.jpg`;
+
     imagesRef.current = loadedImages;
+    loadedImages[0].src = getFrameSrc(0);
+
+    let nextIndex = 1;
+    let timerId = 0;
+    let cancelled = false;
+
+    const loadChunk = () => {
+      if (cancelled) return;
+
+      const chunkEnd = Math.min(nextIndex + 12, totalFrames);
+      for (let index = nextIndex; index < chunkEnd; index += 1) {
+        loadedImages[index].src = getFrameSrc(index);
+      }
+      nextIndex = chunkEnd;
+
+      if (nextIndex < totalFrames) {
+        timerId = window.setTimeout(loadChunk, 32);
+      }
+    };
+
+    timerId = window.setTimeout(loadChunk, 0);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timerId);
+    };
   }, []);
 
   // 2. High-performance Canvas Drawing
@@ -411,13 +436,13 @@ export function HealthAndSensorsScroll() {
     return 0;
   };
 
-  const phase1Op = getOpacity(progress, 0, 0, 0.3, 0.5);
-  const phase3Op = getOpacity(progress, 0.5, 0.7, 2, 2);
+  const phase1Op = progress < 0.36 ? 1 : progress < 0.54 ? 1 - (progress - 0.36) / 0.18 : 0;
+  const phase2Op = getOpacity(progress, 0.28, 0.46, 1, 1);
   
   const watchLeft = 50; 
 
   return (
-    <section ref={containerRef} id="features" className="scroll-main-container" style={{ height: "400vh", position: "relative", background: tokens.white, borderTop:`1px solid ${tokens.border}` }}>
+    <section ref={containerRef} id="features" className="scroll-main-container" style={{ height: "320vh", position: "relative", background: tokens.white, borderTop:`1px solid ${tokens.border}` }}>
       <style>{`
         .watch-fixed-box { display: none; }
         @media (max-width: 1024px) {
@@ -484,7 +509,7 @@ export function HealthAndSensorsScroll() {
         </svg>
 
         {/* Phase 2 Leader Lines */}
-        <svg className="leader-lines" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 20, opacity: phase3Op, transition: "opacity 0.5s", willChange: "opacity" }}>
+        <svg className="leader-lines" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 20, opacity: phase2Op, transition: "opacity 0.5s", willChange: "opacity" }}>
           {linesP2.map((l, i) => (
             <g key={i}>
               <polyline points={`${l.x1},${l.y1} ${l.turnX},${l.y1} ${l.turnX},${l.dropY} ${l.x2},${l.dropY} ${l.x2},${l.y2}`} fill="none" stroke={l.color} strokeWidth="1.5" strokeDasharray="4 4" opacity="0.85" />
@@ -515,11 +540,11 @@ export function HealthAndSensorsScroll() {
         </div>
 
         {/* Phase 2: Sensors */}
-        <div style={{ position: "absolute", inset: 0, padding: "100px 56px", pointerEvents: phase3Op > 0 ? "auto" : "none", opacity: phase3Op, willChange: "opacity" }} className="section-pad scroll-phase">
-          <div className="scroll-phase-inner" style={{ opacity: phase3Op }}>
+        <div style={{ position: "absolute", inset: 0, padding: "100px 56px", pointerEvents: phase2Op > 0 ? "auto" : "none", opacity: phase2Op, willChange: "opacity" }} className="section-pad scroll-phase">
+          <div className="scroll-phase-inner" style={{ opacity: phase2Op }}>
             <SectionTitle>Five modalities.<br /><strong>One 2.82mm chip.</strong></SectionTitle>
           </div>
-          <div className="grid-3 scroll-grid scroll-grid-mobile" style={{ gap:48, marginTop:56, opacity: phase3Op }}>
+          <div className="grid-3 scroll-grid scroll-grid-mobile" style={{ gap:48, marginTop:56, opacity: phase2Op }}>
             <div className="scroll-feat-col" style={{ display:"flex", flexDirection:"column", gap:36 }}>
               {SENSORS.slice(0,3).map((s, i) => <SensorItem key={i} data={s} align="left" color={SENSOR_COLORS[i]} dotRef={i===0 ? s0Ref : i===1 ? s1Ref : s2Ref} />)}
             </div>
@@ -639,7 +664,7 @@ export function ClinicallyValidated() {
       <div className="reveal">
         <SectionTitle>Clinically validated<br /><strong>in the field.</strong></SectionTitle>
         <p style={{ fontSize:15, fontWeight:300, color:tokens.mid, marginTop:16, maxWidth:640 }}>
-          175 participants. NABL-accredited lab. Monk Skin Tone Scale 4–10. West Bengal, India.
+          175 participants. Accredited reference lab. Monk Skin Tone Scale 4-10. Real-world validation across diverse skin tones.
         </p>
       </div>
 
@@ -762,14 +787,14 @@ export function Market() {
   return (
     <section id="market" className="section-pad" style={{ background:tokens.black }}>
       <div className="reveal">
-        <SectionTitle light>A $30.7B problem.<br /><strong>No wearable has solved it.</strong></SectionTitle>
+        <SectionTitle light>A worldwide care gap.<br /><strong>No wearable has solved it.</strong></SectionTitle>
       </div>
       <div className="grid-2" style={{ gap:80, marginTop:56, alignItems:"start" }}>
         <div className="reveal" style={{ zIndex: 1 }}>
           {[
-            <>6.2 million Americans live with heart failure. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>23% are readmitted within 30 days.</strong> The total annual treatment burden is $30.7B — and climbing.</>,
-            <>Apple Watch detects AFib. But it can&apos;t predict decompensation, can&apos;t contact emergency services independently, and isn&apos;t cleared for clinical remote patient monitoring. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>SamaWritten fills every gap.</strong></>,
-            <>With FDA 510(k) pathway underway, CMS RPM reimbursement eligibility, and a direct-to-consumer model, SamaWritten is both a <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>consumer product and a clinical tool</strong> — two revenue streams from one device.</>,
+            <>Cardiovascular disease remains the leading cause of death worldwide, and heart failure affects tens of millions of people across every major health system. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>The burden is global, persistent, and still too reactive.</strong></>,
+            <>Most wearables surface wellness data. They do not continuously fuse five signals, predict decompensation, or escalate without a phone when every minute matters. <strong style={{color:"rgba(255,255,255,0.88)",fontWeight:400}}>SamaWritten is designed to close that gap.</strong></>,
+            <>Built for deployment across markets, SamaWritten combines on-device intelligence, cellular independence, and clinician-ready workflows in a form factor patients can actually wear every day.</>,
           ].map((text, i) => (
             <p key={i} style={{ fontSize:14.5, fontWeight:300, lineHeight:1.85, color:"rgba(255,255,255,0.44)", marginBottom:20 }}>{text}</p>
           ))}
@@ -833,7 +858,7 @@ export function Footer() {
           .footer-container { padding: 48px 24px !important; justify-content: center !important; text-align: center !important; }
         }
       `}</style>
-      <a href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+      <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
         <img
           src="/SamaWritten-Logo.png"
           alt="SamaWritten Logo"
@@ -843,16 +868,16 @@ export function Footer() {
           SamaWritten
           <span style={{ width: 4, height: 4, borderRadius: "50%", background: tokens.accent, marginLeft: 2, display: "inline-block" }} />
         </div>
-      </a>
+      </Link>
       <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
-        <a href="/privacy" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.mid, textDecoration:"none", transition:"color 0.2s" }}
+        <Link href="/privacy" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.mid, textDecoration:"none", transition:"color 0.2s" }}
           onMouseEnter={e => e.currentTarget.style.color = tokens.accent}
           onMouseLeave={e => e.currentTarget.style.color = tokens.mid}
-        >Privacy</a>
-        <a href="/terms" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.mid, textDecoration:"none", transition:"color 0.2s" }}
+        >Privacy</Link>
+        <Link href="/terms" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.mid, textDecoration:"none", transition:"color 0.2s" }}
           onMouseEnter={e => e.currentTarget.style.color = tokens.accent}
           onMouseLeave={e => e.currentTarget.style.color = tokens.mid}
-        >Terms</a>
+        >Terms</Link>
         <a href="mailto:hi@samawritten.com" style={{ fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:"0.05em", color:tokens.accent, textDecoration:"none", borderBottom: `1px solid ${tokens.accent}` }}>
           hi@samawritten.com
         </a>
@@ -860,3 +885,5 @@ export function Footer() {
     </footer>
   );
 }
+
+
