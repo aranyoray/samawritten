@@ -770,11 +770,8 @@ export function ClinicallyValidated() {
         ))}
       </div>
 
-      {/* Paper title + CTA */}
+      {/* CTA */}
       <div className="reveal" style={{ marginTop:48, textAlign:"center" }}>
-        <p style={{ fontSize:12, fontWeight:300, color:tokens.dim, lineHeight:1.7, maxWidth:680, margin:"0 auto 24px" }}>
-          &ldquo;Validation of a Sub-$10 Battery-Free Multi-Wavelength Photoplethysmography Sensor for Non-Invasive Community Health Screening&rdquo; — Ray &amp; Adig, 2025
-        </p>
         <BtnDark onClick={openModal}>Request Access</BtnDark>
       </div>
     </section>
@@ -833,7 +830,7 @@ export function CTA() {
           </div>
         </div>
         <h2 style={{ fontSize:"clamp(36px,7vw,88px)", fontWeight:200, lineHeight:1, letterSpacing:"-0.04em", marginBottom:24 }}>
-          The most powerful<br />cardiac wearable<br /><strong style={{ fontWeight: 700 }}>ever built.</strong>
+          Clinic-grade vitals<br /><strong style={{ fontWeight: 700 }}>on your sleeve.</strong>
         </h2>
         <p style={{ fontSize:15, fontWeight:300, color:tokens.mid, maxWidth:420, margin:"0 auto 52px", lineHeight:1.75 }}>
           Five sensors. Twenty conditions. Cellular built in.<br />
@@ -841,7 +838,7 @@ export function CTA() {
           <strong style={{ color:tokens.text, fontWeight:500 }}>a guardian that never sleeps.</strong>
         </p>
         <div style={{ display:"flex", gap:14, justifyContent:"center", alignItems:"center", marginBottom:20, flexWrap: "wrap" }}>
-          <BtnDark onClick={openModal} style={{ fontSize:14, padding:"16px 36px" }}>Join Waitlist</BtnDark>
+          <BtnDark onClick={openModal} style={{ fontSize:14, padding:"16px 36px" }}>Reserve SamaWritten</BtnDark>
           <a href="mailto:hi@samawritten.com" style={{ fontSize:13, fontWeight:300, color:tokens.mid, textDecoration: "none", display:"flex", alignItems:"center", gap:6 }}>Talk to us →</a>
         </div>
       </div>

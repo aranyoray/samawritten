@@ -7,7 +7,7 @@ import { useWaitlist } from "../context/WaitlistContext";
 
 const ELIGIBILITY = [
   "Age 50 or above",
-  "Based in a supported study market",
+  "Indiana resident",
   "No active pacemaker or implanted defibrillator",
   "Willing to wear SamaBeat daily for 90 days",
   "Able to complete remote onboarding and scheduled follow-ups",
@@ -67,7 +67,7 @@ export default function ClinicalTrials() {
             marginBottom: 16,
           }}
         >
-          Global Validation Program - Rolling Applications
+          Indiana Clinical Trial - Now Enrolling
         </Mono>
         <h1
           style={{
@@ -81,7 +81,7 @@ export default function ClinicalTrials() {
           }}
         >
           Help us prove that{" "}
-          <strong style={{ fontWeight: 700 }}>early detection scales globally</strong>
+          <strong style={{ fontWeight: 700 }}>early detection saves lives</strong>
         </h1>
         <p
           style={{
@@ -93,9 +93,9 @@ export default function ClinicalTrials() {
             marginBottom: 40,
           }}
         >
-          We&apos;re enrolling a 500-participant cohort aged 50+ across supported
-          markets for a 90-day study validating SamaBeat&apos;s real-time cardiac
-          monitoring against clinical-grade diagnostics.
+          We&apos;re enrolling Indiana residents aged 50+ for a 90-day study
+          validating SamaBeat&apos;s real-time cardiac monitoring against
+          clinical-grade diagnostics.
         </p>
         <BtnDark onClick={openModal} style={{ background: tokens.accent }}>
           Apply to the Program
@@ -288,7 +288,7 @@ export default function ClinicalTrials() {
             marginBottom: 32,
           }}
         >
-          Join our 500-participant cohort helping shape the future of cardiac
+          Join our Indiana-based cohort helping shape the future of cardiac
           care. Device access and study check-ins are fully covered for selected
           participants.
         </p>

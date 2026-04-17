@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://samawritten.com"),
-  title: "SamaWritten - The Most Powerful Cardiac Wearable Ever Built",
+  title: "SamaWritten - Cardiac Intel on the Go",
   description:
     "SamaWritten (formerly SamaBeat) is a 24/7 cardiac monitoring wearable that detects 20+ conditions and alerts caregivers when intervention is needed. Cellular built in, clinical-grade AI.",
   keywords: [
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SamaWritten - Advanced Cardiac Intelligence",
     description:
-      "The most powerful cardiac wearable ever built. Five sensors. Twenty conditions.",
+      "Clinic-grade vitals on your sleeve. Five sensors. Twenty conditions.",
     images: ["/samawritten.png"],
   },
   verification: {

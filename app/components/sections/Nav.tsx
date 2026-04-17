@@ -75,7 +75,7 @@ export function Nav() {
 
       <div className="top-banner">
         <span className="top-banner-text">
-          Applications open for the global validation program
+          Express interest for Indiana trial - apply now
         </span>
         <Link href="/clinical-trials">apply now</Link>
       </div>
