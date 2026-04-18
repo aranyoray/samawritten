@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useWaitlist } from "../../context/WaitlistContext";
 import { tokens } from "@/app/constants";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { openModal } = useWaitlist();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -75,7 +73,7 @@ export function Nav() {
 
       <div className="top-banner">
         <span className="top-banner-text">
-          Express interest for Indiana trial - apply now
+          Express interest for Indiana trial –
         </span>
         <Link href="/clinical-trials">apply now</Link>
       </div>
@@ -159,25 +157,6 @@ export function Nav() {
               {label}
             </a>
           ))}
-          <button
-            onClick={openModal}
-            style={{
-              fontSize: 12,
-              fontWeight: 400,
-              color: tokens.white,
-              textDecoration: "none",
-              padding: "8px 20px",
-              borderRadius: 100,
-              background: tokens.black,
-              transition: "opacity 0.2s",
-              border: "none",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.72")}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-          >
-            Join Waitlist
-          </button>
         </div>
 
         <button
@@ -243,30 +222,6 @@ export function Nav() {
             {label}
           </a>
         ))}
-        <div style={{ marginTop: "auto" }}>
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              openModal();
-            }}
-            style={{
-              display: "block",
-              width: "100%",
-              textAlign: "center",
-              fontSize: 14,
-              fontWeight: 400,
-              color: tokens.white,
-              textDecoration: "none",
-              padding: "16px",
-              borderRadius: 100,
-              background: tokens.black,
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Join Waitlist
-          </button>
-        </div>
       </div>
     </>
   );
