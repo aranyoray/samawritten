@@ -173,7 +173,7 @@ export default function PrivacyPage() {
       `}</style>
 
       <h1 className="privacy-h1">Privacy Policy</h1>
-      <p className="privacy-updated">Last updated: March 30, 2026</p>
+      <p className="privacy-updated">Last updated: April 23, 2026</p>
 
       {/* Trust Signal Cards */}
       <div className="trust-cards">
@@ -200,14 +200,24 @@ export default function PrivacyPage() {
         <h3>In the Apps</h3>
         <p>
           Health data is stored locally on your device using encrypted storage (CoreData on iOS,
-          Room database on Android) with a 90-day automatic retention policy — older readings are
-          pruned automatically. Optionally, data is backed up to Firebase cloud services
-          secured with industry-standard encryption in transit (TLS) and at rest (AES-256).
-          Data is associated with your authenticated account and is not accessible to other users.
+          Room database on Android) with a 90-day automatic retention policy — older snapshots are
+          pruned automatically. Optionally, daily health snapshots are synced to Firebase Firestore
+          every 15 minutes, secured with user-scoped access controls, encryption in transit (TLS),
+          and encryption at rest (AES-256). Data is associated with your authenticated account and
+          is not accessible to other users.
         </p>
         <p>
           Authentication credentials are stored using the platform keychain (iOS Keychain / Android Keystore
-          with AES-256-GCM encryption).
+          with AES-256-GCM encryption). On iOS, users start with an anonymous account and may
+          optionally sign in with Apple or Google.
+        </p>
+        <h3>Crash Reporting & Feature Configuration</h3>
+        <p>
+          We use Firebase Crashlytics to collect error-level crash reports for app stability.
+          Health values are never included in crash reports — only error types, stack traces,
+          and framework-level messages are sent. We use Firebase Remote Config to manage feature
+          flags (e.g., enabling or disabling specific app features). Remote Config does not
+          collect personal data.
         </p>
       </div>
 
@@ -218,8 +228,8 @@ export default function PrivacyPage() {
           or marketing purposes. Your data is shared only with:
         </p>
         <ul>
-          <li><strong>Apple Health / Health Connect</strong> — when you grant permission, your heart rate, SpO2, and step data are written to the platform health store</li>
-          <li><strong>Firebase</strong> — for optional cloud backup, secured with user-scoped access controls</li>
+          <li><strong>Apple Health / Health Connect</strong> — when you grant permission, Sama reads your heart rate, SpO2, step count, sleep, and active energy data from the platform health store</li>
+          <li><strong>Firebase</strong> — for optional cloud backup (Firestore), crash reporting (Crashlytics), and feature configuration (Remote Config), all secured with user-scoped access controls</li>
           <li><strong>People you choose</strong> — the app supports sharing your health data with family members, doctors, or caregivers you explicitly authorize, with time-limited, revocable access</li>
         </ul>
         <p>No data is shared with analytics or advertising networks.</p>
@@ -250,9 +260,9 @@ export default function PrivacyPage() {
         <p>You have the right to:</p>
         <ul>
           <li><strong>Access</strong> your health data at any time through the app or web dashboard</li>
-          <li><strong>Export</strong> your data via daily and weekly summaries</li>
-          <li><strong>Delete</strong> your account and all associated data</li>
-          <li><strong>Revoke</strong> Bluetooth, HealthKit, Health Connect, or cloud sync permissions at any time</li>
+          <li><strong>Export</strong> your data as a 30-day health summary PDF, shared via your device&apos;s share sheet</li>
+          <li><strong>Delete</strong> your account and all associated data (local storage, Firestore snapshots, and Firebase Auth account are all removed)</li>
+          <li><strong>Revoke</strong> HealthKit, Health Connect, or cloud sync permissions at any time</li>
           <li><strong>Withdraw consent</strong> for data collection at any time through the app settings or by contacting us</li>
         </ul>
       </div>

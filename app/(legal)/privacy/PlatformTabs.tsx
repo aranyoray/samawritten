@@ -81,10 +81,10 @@ export function PlatformTabs() {
           <>
             <h3>In the iOS App</h3>
             <ul>
-              <li><strong>Health data</strong> — heart rate, blood oxygen saturation (SpO2), and step count from your SamaWritten wearable via Bluetooth Low Energy</li>
-              <li><strong>Account information</strong> — email address or authentication provider identity (Apple ID, Google) when you create or link an account</li>
-              <li><strong>Apple Health integration</strong> — with your permission, health data is written to Apple Health (HealthKit)</li>
-              <li><strong>Device information</strong> — wearable device identifier for pairing and data association</li>
+              <li><strong>Health data from Apple Health</strong> — with your permission, Sama reads heart rate, blood oxygen saturation (SpO2), step count, sleep duration and quality, and active energy from Apple Health (HealthKit)</li>
+              <li><strong>Account information</strong> — you start with an anonymous account; optionally, email address or authentication provider identity (Apple ID, Google) when you sign in</li>
+              <li><strong>Computed metrics</strong> — the app generates a daily health score based on your health data</li>
+              <li><strong>Crash reports</strong> — error-level logs are sent to Firebase Crashlytics for stability monitoring; health values are never included in crash reports</li>
             </ul>
           </>
         )}
@@ -119,9 +119,10 @@ export function PlatformTabs() {
           <>
             <h3>In the iOS App</h3>
             <p>
-              Your health data is used to display real-time readings, generate trend charts and health
-              insights, trigger health alerts, and sync data to Apple Health. Account information is
-              used for authentication and optional cloud backup of your health history.
+              Your health data from Apple Health is used to display daily health snapshots, compute a
+              health score, generate trend insights, and deliver a morning briefing notification with
+              your overnight health summary. Account information is used for authentication and optional
+              cloud backup of your health history to Firebase.
             </p>
           </>
         )}
@@ -145,11 +146,11 @@ export function PlatformTabs() {
           <>
             <h3>iOS Permissions</h3>
             <ul>
-              <li><strong>Bluetooth</strong> — to connect to your wearable and receive health data in real time</li>
-              <li><strong>HealthKit (read & write)</strong> — to sync heart rate, SpO2, and step data with Apple Health</li>
-              <li><strong>Notifications</strong> — to alert you about critical health events and low device battery</li>
-              <li><strong>Background processing</strong> — to maintain the Bluetooth connection and sync data while the app is in the background</li>
+              <li><strong>HealthKit (read)</strong> — to read heart rate, blood oxygen, step count, sleep, and active energy data from Apple Health</li>
+              <li><strong>Notifications</strong> — for your daily morning briefing with overnight health summary (local notifications only; no push notification server is used)</li>
+              <li><strong>Background delivery</strong> — to receive updated health data from Apple Health on a periodic schedule (hourly for metrics, daily for sleep)</li>
             </ul>
+            <p>Sama does not request access to your camera, photos, location, microphone, contacts, or Bluetooth.</p>
           </>
         )}
 
